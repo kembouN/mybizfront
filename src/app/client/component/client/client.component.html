@@ -1,0 +1,55 @@
+<div class="client-container">
+  <app-side-bar></app-side-bar>
+  <div class="main-client-content">
+    <div class="common-header">
+      <header>
+        <nav class="bg-blue-700 text-white p-4 flex justify-between items-center">
+          <div> @if (nomUtilisateur) {<span>{{nomUtilisateur}}</span>}</div>
+        </nav>
+      </header>
+    </div>
+
+    <main class="flex-1 p-8">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-semibold">Liste des clients</h2>
+        <button class="ajouter" (click)="openClientForm()"> +Ajouter</button>
+      </div>
+      <table class="min-w-full bg-white rounded shadow">
+        <thead class="bg-blue-600 text-white">
+          <tr>
+            <th class="py-2 px-4">#</th>
+            <th class="py-2 px-4">Code</th>
+            <th class="py-2 px-4">Nom</th>
+            <th class="py-2 px-4">Adresse e-mail</th>
+            <th class="py-2 px-4">Téléphone</th>
+            <th class="py-2 px-4">Statut</th>
+            <th class="py-2 px-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (listClients) {
+            @for (client of listClients; track client.idClient) {
+              <tr class="border-b">
+                <td class="py-2 px-4">{{listClients.indexOf(client)}}</td>
+                <td class="py-2 px-4">{{client.code}}</td>
+                <td class="py-2 px-4">{{client.nomClient}}</td>
+                <td class="py-2 px-4">{{client.emailUn}}@if (client.emailDeux) {/{{client.emailDeux}}}</td>
+                <td class="py-2 px-4">{{client.telephoneUn}}@if (client.telephoneDeux) {/{{client.telephoneDeux}}}</td>
+                <td class="py-2 px-4">{{client.statut}}</td>
+                <td class="py-2 px-4">
+                  <button class="text-blue-600 hover:underline">Modifier</button>
+                </td>
+              </tr>
+            }
+          }@else {
+            <div class="empty-table">
+              Vous n'avez aucun client enregistré
+            </div>
+          }
+        </tbody>
+      </table>
+    </main>
+  </div>
+</div>
+
+<app-custom-modal [isCentered]="true" [isVisible]="clientFormOpened" [modalTitle]="'Ajouter un nouveau client ou prospect'" (close)="closeClientForm()"><app-client-form></app-client-form></app-custom-modal>

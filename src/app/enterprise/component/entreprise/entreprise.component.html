@@ -1,0 +1,58 @@
+<div class="entreprise-container">
+  <app-side-bar></app-side-bar>
+  <div class="main-entreprise-content">
+    <div class="common-header">
+      <header>
+        <nav class="bg-blue-700 text-white p-4 flex justify-between items-center">
+          <div class="nom-utilisateur"> <app-custom-icon class="fa-user"></app-custom-icon> @if (nomUtilisateur) {<span>{{nomUtilisateur}}</span>}</div>
+        </nav>
+      </header>
+    </div>
+
+    <main class="flex-1 p-8">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-semibold">Liste de vos entreprises</h2>
+        <button class="ajouter" (click)="openEntrepriseForm()"> +Ajouter</button>
+      </div>
+      <table class="min-w-full bg-white rounded shadow">
+        <thead class="bg-blue-600 text-white">
+          <tr>
+            <th class="py-2 px-4">#</th>
+            <th class="py-2 px-4">Code</th>
+            <th class="py-2 px-4">Nom</th>
+            <th class="py-2 px-4">Adresse e-mail</th>
+            <th class="py-2 px-4">Description</th>
+            <th class="py-2 px-4">Téléphone(s)</th>
+            <th class="py-2 px-4">Responsable</th>
+            <th class="py-2 px-4">Localisation</th>
+            <th class="py-2 px-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (listeEts) {
+            @for (ets of listeEts; track ets.entrepriseId) {
+              <tr class="border-b">
+                <td class="py-2 px-4">{{listeEts.indexOf(ets)+1}}</td>
+                <td class="py-2 px-4">{{ets.code}}</td>
+                <td class="py-2 px-4">{{ets.nom}}</td>
+                <td class="py-2 px-4">{{ets.email}}</td>
+                <td class="py-2 px-4">{{ets.description}}</td>
+                <td class="py-2 px-4">{{ets.telephone1}}@if (ets.telephone2) {<span>/{{ets.telephone2}}</span>}</td>
+                <td class="py-2 px-4">{{ets.responsable}}</td>
+                <td class="py-2 pax-4">{{ets.localisation}}</td>
+                <td class="py-2 px-4">
+                  <button class="text-blue-600 hover:underline">Modifier</button>
+                </td>
+              </tr>
+            }
+          }@else {
+            <div class="empty-table"> Aucune entreprise créee pour le moment</div>
+          }
+        </tbody>
+      </table>
+    </main>
+  </div>
+</div>
+
+<app-custom-modal [isVisible]="entrepriseFormOpened" [modalTitle]="'Ajouter une entreprise'" [isCentered]="true" (close)="closeEntrepriseForm()"><app-entreprise-form></app-entreprise-form></app-custom-modal>
+

@@ -1,0 +1,45 @@
+.sibe-bar-contenair
+{
+  position: fixed;
+  background-color: #2C3E50;
+  height: 95%;
+  margin: 0 0 10% 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  z-index: 999;
+  .header{
+    height: 50px;
+    padding: 10px;
+    margin-top: 10px;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.7rem;
+    font-weight: bold;
+    color:  #0056b3;
+
+  }
+
+  .pages-links{
+    display: flex;
+    flex-direction: column;
+    font-size: larger;
+    a{
+      color: black;
+      text-decoration-line: none;
+      margin: 20px;
+      text-align: center;
+      background-color: rgb(226, 225, 225, 0.3);
+      font-size: large;
+      padding: 10px;
+      border-radius: 15px;
+      &:hover{
+        background-color:  #0056b3;
+      }
+
+    }
+    .active-link{
+      background-color: #0056b3;
+    }
+
+  }
+}

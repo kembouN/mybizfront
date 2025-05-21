@@ -1,0 +1,5 @@
+@for (toast of toastService.toasts(); track $index) {
+  <div class="toast {{toast.type}}">
+    {{toast.text}}
+  </div>
+}

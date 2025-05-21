@@ -1,0 +1,44 @@
+import { Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
+import { LoginComponent } from './account/component/login/login.component';
+
+export const routes: Routes = [
+
+  {
+    path: "login",
+    loadComponent: () => import('./account/component/login/login.component').then(c => c.LoginComponent)
+  },
+  {
+    path: "register",
+    loadComponent: () => import('./account/component/register/register.component').then(c => c.RegisterComponent)
+  },
+  {
+    path:"client",
+    loadComponent: () => import('./client/component/client/client.component').then(c => c.ClientComponent),
+    canActivate: [authGuard]
+  },
+  {
+    path:"enterprises",
+    loadComponent: () => import('./enterprise/component/entreprise/entreprise.component').then(c => c.EntrepriseComponent),
+    canActivate: [authGuard]
+  },
+  {
+    path:"services",
+    loadComponent: () => import('./services/component/services/services.component').then(c => c.ServicesComponent),
+    canActivate: [authGuard]
+  },
+  {
+    path:"commandes",
+    loadComponent: () => import('./commandes/component/commandes/commandes.component').then(c => c.CommandesComponent),
+    canActivate: [authGuard]
+  },
+  {
+    path:"dashboard",
+    loadComponent: () => import('./dashboard/component/dashboard.component').then(c => c.DashboardComponent)
+  },
+  {
+    path: "",
+    component: LoginComponent
+  }
+
+];

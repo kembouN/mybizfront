@@ -1,0 +1,17 @@
+@if(_isVisible()){
+  <div class="backdrop"></div>
+  <div class="modal" >
+    <header>
+      <app-custom-button [borderRadius]="50" [text]="'X'" [disabled]="false" [type]="'button'" [textSize]="1" (onClick)="close.emit()">
+      </app-custom-button>
+      <h3>
+        {{modalTitle()}}
+      </h3>
+    </header>
+
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
+
+  </div>
+}

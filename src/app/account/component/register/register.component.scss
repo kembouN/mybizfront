@@ -1,0 +1,49 @@
+
+.register-container {
+  max-width: 400px;
+  margin: auto;
+  margin-top: 100px;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.register-container a {
+  text-decoration-line: none;
+  color: #007bff;
+}
+
+.register-container h2 {
+  margin-bottom: 1.5rem;
+}
+
+.register-container .brand {
+  color: #007bff;
+}
+
+.register-container form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.register-container form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+
+
+.register-container form button:hover {
+  background-color: #0056b3;
+}

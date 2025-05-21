@@ -1,0 +1,57 @@
+<div class="commande-form-container">
+  <form #commandeForm="ngForm" (ngSubmit)="addCommande()">
+    <select name="client_id" [(ngModel)]="initialForm.idClient" title="Sélectionnez un client" #idClient="ngModel">
+      <option>Choisissez le client...</option>
+      @for (client of listeClients; track client.idClient) {
+        <option value="{{client.idClient}}">{{client.nomClient}}</option>
+      }
+    </select>
+
+    <select name="service_id" [(ngModel)]="initialForm.idService" title="Sélectionnez un service" #idService="ngModel">
+      <option value="">Choix du service...</option>
+      @for (service of listeService; track service.idService) {
+        <option value="{{service.idService}}">{{service.libelle}}</option>
+      }
+    </select>
+
+    <input type="date" name="commande-date" [(ngModel)]="initialForm.dateContact" placeholder="Entrez la date de la commande" required #dateContact="ngModel"/>
+    <label for="">
+      Une avance a t-elle été payée?
+      <input type="checkbox" [(ngModel)]="avancePayee" name="avancePee"/>
+    </label>
+    @if (avancePayee) {
+      <input type="number" name="avance" [(ngModel)]="initialForm.avance" placeholder="Montant de l'avance" required #emailUn="ngModel"/>
+      <input type="date" name="date-avance" [(ngModel)]="initialForm.dateAvance" placeholder="Date de paiment de l'avance" #emailDeux="ngModel"/>
+    }
+    <input type="date" name="dateDebut" [(ngModel)]="initialForm.dateDebut" placeholder="Date de début pour la commande" required #dateDebut="ngModel"/>
+    <label for="">
+      Evaluation quantitaive de la commande?
+      <input type="checkbox" [(ngModel)]="quantitative" name="qte"/>
+    </label>
+    @if (quantitative) {
+      <input type="number" name="qte" [(ngModel)]="initialForm.qte" placeholder="Quantité d'article" #qte="ngModel"/>
+    }@else {
+      <input type="number" name="duree" [(ngModel)]="initialForm.duree" placeholder="Durée de réalisation de la commande" #duree="ngModel"/>
+    }
+    <label for="">
+      Commande totalement payée?
+      <input type="checkbox" name="paye" [(ngModel)]="initialForm.paye" required #paye="ngModel" />
+    </label>
+    @if(initialForm.paye){
+      <input type="date" name="datePaiement" [(ngModel)]="initialForm.datePaiement" placeholder="Date de paiement total" #datePaiement="ngModel">
+    }
+    <select name="statut" [(ngModel)]="initialForm.statut" title=" Statut de la commande" #statut="ngModel">
+      <option value="">Statut de la commande...</option>
+      <option value="EN ATTENTE">En attente</option>
+      <option value="EN COURS">En cours</option>
+      <option value="TERMINEE">Terminé</option>
+      <option value="ANNULEE">Annulée</option>
+      <option value="LIVREE">Livrée</option>
+    </select>
+    <div class="boutons">
+      <button type="reset">Annuler</button>
+      <button type="submit">Ajouter</button>
+    </div>
+
+  </form>
+</div>

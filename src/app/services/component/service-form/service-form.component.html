@@ -1,0 +1,17 @@
+<div class="service-form-container">
+
+  <form #serviceFrom="ngForm" (ngSubmit)="addService()">
+    <input type="text" name="libelle" [(ngModel)]="initialForm.libelle" placeholder="Entrez un libellé" required #libelle="ngModel"/>
+    <input type="number" name="duree" [(ngModel)]="initialForm.dureeInitiale" placeholder="Durée de réalisation" required #dureeInitiale="ngModel"/>
+    <input type="number" name="qte" [(ngModel)]="initialForm.qteInitiale" placeholder="Quantité initiale" #qteInitiale="ngModel"/>
+    <input type="number" name="prix_initial" [(ngModel)]="initialForm.prixInitial" placeholder="Prix initial du service" #prixInitial="ngModel"/>
+    <textarea name="descrition_service" [(ngModel)]="initialForm.description" placeholder="Entrez une description" #description="ngModel"></textarea>
+
+    <div class="boutons">
+      <button type="reset">Annuler</button>
+      <button type="submit">Ajouter</button>
+    </div>
+  </form>
+
+</div>
+

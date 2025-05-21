@@ -1,0 +1,88 @@
+.client-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .main-client-content {
+    width: 83%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .common-header {
+      background-color: #007bff;
+      padding: 10px 50px 10px 20px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: end;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+      z-index: 1;
+      margin-bottom: 20px;
+    }
+
+    main {
+      padding: 8px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      z-index: 100;
+      height: 80%;
+
+      .ajouter {
+        margin-left: 93%;
+        background-color: #007bff;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        color: white;
+      }
+
+      table {
+        width: 100%;
+        border-radius: 0.25rem;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      }
+
+      thead {
+        background-color: #7d90b0;
+        color: #ffffff;
+        border-radius: 0.25rem;
+
+        th {
+          padding: 16px;
+          text-align: left;
+        }
+      }
+
+      tbody {
+        .empty-table {
+          text-align: center;
+          font-size: larger;
+          color: rgb(163, 158, 158);
+          font-style: normal;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        tr {
+          border-bottom: 1px solid #f7fafc;
+        }
+        &:nth-child(odd){
+          background-color: #f7fafc;
+        }
+
+        td {
+          padding: 8px, 16px, 8px, 16px;
+          button {
+            color: #3b82f6;
+            text-decoration: none;
+            background-color: rgb(226, 225, 225, 0.3);
+            cursor: pointer;
+
+          }
+        }
+      }
+
+
+    }
+  }
+
+}

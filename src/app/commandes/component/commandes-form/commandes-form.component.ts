@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-commandes-form',
-  imports: [CustomModalComponent, FormsModule],
+  imports: [FormsModule],
   templateUrl: './commandes-form.component.html',
   styleUrl: './commandes-form.component.scss'
 })

@@ -1,12 +1,13 @@
 
 export interface EnterpriseRequest{
   idUser: number
-  nom: string,
-  email: string,
-  description: string,
+  nom?: string,
+  email?: string,
+  description?: string,
   telephone1?: number,
   telephone2?: number,
-  localisation: string,
+  pays?: string,
+  ville?: string,
   // logo: File
 }
 
@@ -21,4 +22,6 @@ export interface Enterprise{
   localisation: string,
   logo: Blob,
   responsable: string
+  pays: string,
+  ville: string
 }

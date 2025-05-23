@@ -1,7 +1,7 @@
 export interface ClientRequest {
   idUser?: number,
   idService?: number,
-  idEntrprise?: number,
+  idEntreprise?: number,
   emailUn: string,
   emailDeux?: string,
   nom: string,
@@ -21,5 +21,7 @@ export interface ClientResponse {
   telephoneDeux: string,
   nomClient: string,
   statut: string,
-  tranche: string
+  tranche: string,
+  trancheId: number,
+  typeprospectId: number
 }

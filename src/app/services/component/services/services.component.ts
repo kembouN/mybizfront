@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, numberAttribute, OnInit } from '@angular/core';
 import { SideBarComponent } from "../../../shared/components/side-bar/side-bar.component";
 import { CustomModalComponent } from '../../../shared/components/custom-modal/custom-modal.component';
 import { ServiceFormComponent } from "../service-form/service-form.component";
@@ -19,6 +19,8 @@ export class ServicesComponent implements OnInit{
   serviceFormOpened = false;
 
   nomUtilisateur = localStorage.getItem("userName");
+  etsId = numberAttribute(localStorage.getItem("etsId"));
+
 
   listService!: ServiceResponse[];
 
@@ -31,7 +33,7 @@ export class ServicesComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.servicesService.getEntrepriseServices(1).subscribe(res =>{
+    this.servicesService.getEntrepriseServices(this.etsId).subscribe(res =>{
       this.listService = res.content
       console.log(res.message)
     })

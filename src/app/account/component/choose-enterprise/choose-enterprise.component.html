@@ -1,0 +1,32 @@
+<div class="container">
+  <h1 class="brand">MyBizCopilot</h1>
+  <h2>Bon retour parmi nous !</h2>
+  <p>Choisissez un espace de travail ci-dessous pour continuer</p>
+
+  <div class="org-box">
+    @if(entreprises.length != 0){
+      @for (ets of entreprises; track ets.entrepriseId) {
+        <div class="org" (click)="onSelectEnterprise(ets.entrepriseId)">
+          <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" /> -->
+          <div class="org-info">
+            <p> <strong>{{ets.nom}}</strong></p>
+            <p>1120 clients</p>
+          </div>
+          <span class="arrow">→</span>
+        </div>
+      }
+    }@else {
+      <div class="empty-ets">
+        Vous n'avez encore enregistré aucune entreprise.
+      </div>
+    }
+  </div>
+
+  <div class="actions">
+    <button class="add" (click)="openEtsForm()">+ Ajouter une organisation</button>
+    <button class="logout" (click)="logout()">Se déconnecter</button>
+  </div>
+
+</div>
+
+<app-custom-modal [isCentered]="true" [isVisible]="enterpriseFormOpened" [modalTitle]="'Ajouter une entreprise'" (close)="closeEtsForm()"><app-entreprise-form></app-entreprise-form></app-custom-modal>

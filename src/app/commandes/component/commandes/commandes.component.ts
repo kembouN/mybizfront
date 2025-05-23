@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, numberAttribute, OnInit } from '@angular/core';
 import { SideBarComponent } from "../../../shared/components/side-bar/side-bar.component";
 import { CustomModalComponent } from "../../../shared/components/custom-modal/custom-modal.component";
 import { CommandesFormComponent } from "../commandes-form/commandes-form.component";
@@ -18,6 +18,8 @@ export class CommandesComponent implements OnInit{
   nomUtilisateur = localStorage.getItem("userName");
   commandeFormOpened = false
   listCommandes!: CommandeResponse[];
+  etsId = numberAttribute(localStorage.getItem("etsId"));
+
 
   openCommandemodal():void {
     this.commandeFormOpened = true;
@@ -28,8 +30,8 @@ export class CommandesComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.commandeService.getAllCommandesByEntreprise(1).subscribe(res => {
-      console.log(res.content)
+    this.commandeService.getAllCommandesByEntreprise(this.etsId).subscribe(res => {
+      console.log(res.message)
       this.listCommandes = res.content
     });
   }

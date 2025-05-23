@@ -17,12 +17,12 @@ export class EntrepriseComponent implements OnInit{
   entrepriseService = inject(EntrepriseService);
 
   entrepriseFormOpened = false;
+  edit = false;
 
   nomUtilisateur = localStorage.getItem("userName");
   idUser = numberAttribute(localStorage.getItem("userId"));
   listeEts!: Enterprise[];
-
-
+  etsToEdit!: Enterprise;
 
 
   ngOnInit() {
@@ -33,6 +33,12 @@ export class EntrepriseComponent implements OnInit{
 
   openEntrepriseForm(){
     this.entrepriseFormOpened= true;
+  }
+
+  openEditEnterpriseForm(entreprise: Enterprise) {
+    this.entrepriseFormOpened = true;
+    this.etsToEdit = {...entreprise};
+    this.edit = true;
   }
 
   closeEntrepriseForm(){

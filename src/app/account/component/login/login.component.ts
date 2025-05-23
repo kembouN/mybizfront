@@ -13,7 +13,6 @@ import { ToastService } from '../../../shared/services/toast.service';
 })
 export class LoginComponent {
 
-  // constructor(private toastService: ToastService) {}
 
   authService = inject(AuthService);
   router = inject(Router);
@@ -27,17 +26,17 @@ export class LoginComponent {
   onSubmit(): void{
     this.authService.userLogin(this.initialLoginRequest).subscribe({
       next:(res) =>{
-        console.log(res.message)
+        localStorage.setItem("userEts", JSON.stringify(res.content.entreprises))
         localStorage.setItem("userToken", res.content.token);
         localStorage.setItem("userId", res.content.idUser ? res.content.idUser.toString() : "");
         localStorage.setItem("userName", res.content.username);
         localStorage.setItem("userEmail", res.content.email);
-        this.router.navigate(['/enterprises']);
+        this.router.navigate(['/choose-enterprise']);
 
       },
       error: (err) => {
         console.log(err);
-        this.toastService.show(err.error.message, "error");
+        this.toastService.show(err.error.message ?? "Erreur inattendue lors de la connexion", "error");
       }
     });
   }

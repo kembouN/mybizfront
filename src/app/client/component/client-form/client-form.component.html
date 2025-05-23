@@ -1,17 +1,17 @@
 <div class="client-form-container">
-  <form #entrepriseForm="ngForm" (ngSubmit)="addClient()">
+  <form #entrepriseForm="ngForm" (ngSubmit)="onSubmit()">
     <input type="text" name="nom" [(ngModel)]="initialForm.nom" placeholder="Nom du client" required #nom="ngModel"/>
     <input type="email" name="email1" [(ngModel)]="initialForm.emailUn" placeholder="Email du client" required #emailUn="ngModel"/>
     <input type="email" name="email2" [(ngModel)]="initialForm.emailDeux" placeholder="Autre email" #emailDeux="ngModel"/>
     <label for="">
       Cochez s'il s'agit d'un client et pas un propect
-      <input type="checkbox" name="isClient" [(ngModel)]="initialForm.isClient" required #isClient="ngModel" (change)="toggleTypeprospect()"/>
+      <input type="checkbox" name="isClient" [(ngModel)]="initialForm.isClient" required #isClient="ngModel" (change)="toggleTypeprospect($event)"/>
     </label>
     <input type="tel" name="tel1" [(ngModel)]="initialForm.telephoneUn" placeholder="Numéro de téléphone" required #telephoneUn="ngModel"/>
     <input type="tel" name="tel2" [(ngModel)]="initialForm.telephoneDeux" placeholder="Autre numéro de téléphone" #telephoneDeux="ngModel"/>
     @if (!initialForm.isClient) {
       <select name="type_prospect" [(ngModel)]="initialForm.idTypeprospect" title="Sélectionnez le type de prospect" #idTypeprospect="ngModel">
-        <option value="">Choix du type de prospect...</option>
+        <option value=>Choix du type de prospect...</option>
         @for (typeprospect of listeTypeProspect; track typeprospect) {
           <option value="{{typeprospect.idTypeprospect}}">{{typeprospect.libelleTypeprospect}}</option>
         }

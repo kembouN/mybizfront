@@ -1,10 +1,11 @@
 <div class="entreprise-form-container">
-  <form #entrepriseForm="ngForm" (ngSubmit)="addEntreprise()">
+  <form #entrepriseForm="ngForm" (ngSubmit)="onSubmit()">
     <input type="email" name="email" [(ngModel)]="initialForm.email" placeholder="Email de l'entreprise" required #email="ngModel"/>
     <input type="text" name="nom" [(ngModel)]="initialForm.nom" placeholder="Nom de l'entreprise" required #nom="ngModel">
     <input type="tel" name="tel1" [(ngModel)]="initialForm.telephone1" placeholder="Numéro de téléphone" required #telephone1="ngModel" />
     <input type="tel" name="tel2" [(ngModel)]="initialForm.telephone2" placeholder="Autre numéro de téléphone" #telephone2="ngModel" />
-    <input type="text" name="localisation" [(ngModel)]="initialForm.localisation" placeholder="Décrivez nous votre localisation" #localisation="ngModel"/>
+    <input type="text" name="pays" [(ngModel)]="initialForm.pays" placeholder="Entrez le pays" #pays="ngModel"/>
+    <input type="text" name="ville" [(ngModel)]="initialForm.ville" placeholder="Entrez une ville" #ville="ngModel"/>
     <input type="file" name="logo" disabled placeholder="Chargez votre logo" required/>
     <textarea name="descrition-ets" [(ngModel)]="initialForm.description" placeholder="Entrez une description"></textarea>
     <div class="boutons">

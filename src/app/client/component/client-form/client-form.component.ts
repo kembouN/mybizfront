@@ -1,6 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, input, Input, numberAttribute, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ClientRequest } from '../../models/client';
+import { ClientRequest, ClientResponse } from '../../models/client';
 import { ClientService } from '../../service/client.service';
 import { TrancheService } from '../../service/tranche.service';
 import { Tranche, Typeprospect } from '../../models/tranche-type-propect';
@@ -18,32 +18,71 @@ export class ClientFormComponent implements OnInit{
   tranche = inject(TrancheService);
   toast = inject(ToastService);
 
-
-  initialForm: ClientRequest = {
-    idUser: undefined as number |undefined,
-    idService: undefined as number |undefined,
-    idEntrprise: undefined as number |undefined,
-    emailUn: "",
-    emailDeux: "",
-    nom: "",
-    isClient: 0,
-    telephoneUn: "",
-    telephoneDeux: "",
-    idTranche: undefined as number |undefined,
-    idTypeprospect: undefined as number |undefined
-  };
-
+  @Input() selectedClient!: ClientResponse;
+  initialForm!: ClientRequest;
   listeTranche!: Tranche[];
   listeTypeProspect!: Typeprospect[];
+  isEdit = input<boolean>();
+
+  idUser = numberAttribute(localStorage.getItem("userId"));
+
+  ngOnInit(): void {
+    this.tranche.getAllProspect().subscribe(res =>{
+      this.listeTypeProspect = res.content
+    });
+    this.tranche.getAllTranche().subscribe(res => {
+      this.listeTranche = res.content
+    });
+    if(this.selectedClient){
+      this.initialForm = {
+        idUser: this.idUser,
+        idService: 0,
+        idEntreprise: 0,
+        emailUn: this.selectedClient.emailUn,
+        emailDeux: this.selectedClient.emailDeux,
+        nom: this.selectedClient.nomClient,
+        isClient: this.selectedClient.statut === "Client" ? 1 : 0,
+        telephoneUn: this.selectedClient.telephoneUn,
+        telephoneDeux: this.selectedClient.telephoneDeux,
+        idTranche: this.selectedClient.trancheId,
+        idTypeprospect: this.selectedClient.typeprospectId
+      };
+
+    }else {
+      this.initialForm = {
+        idUser: this.idUser,
+        idService: undefined,
+        idEntreprise: undefined,
+        emailUn: "",
+        emailDeux: "",
+        nom: "",
+        isClient: 0,
+        telephoneUn: "",
+        telephoneDeux: "",
+        idTranche: undefined,
+        idTypeprospect: undefined
+      };
+    }
+  }
+
+  toggleTypeprospect(e: Event) {
+    const checbox = e.target as HTMLInputElement
+    this.initialForm.isClient = checbox.checked ? 1 : 0;
+    console.log(this.initialForm.isClient)
+  }
 
   addClient(){
-    // this.initialForm.isClient =;
+    if(this.initialForm.isClient == 1){
+      this.initialForm.idTypeprospect = 0
+    }
     this.clientService.addClient(this.initialForm).subscribe({
       next:(res) =>{
         console.log(res);
         this.toast.show(res.message, 'success');
         document.getElementById("modal-close-button")?.click();
-        window.location.reload()
+        setTimeout(() => {
+          window.location.reload();
+        },3000);
       },
       error:(error => {
         console.log(error.error.message)
@@ -53,19 +92,40 @@ export class ClientFormComponent implements OnInit{
 
   }
 
-  ngOnInit(): void {
-    this.tranche.getAllProspect().subscribe(res =>{
-      this.listeTypeProspect = res.content
-    });
-    this.tranche.getAllTranche().subscribe(res => {
-      this.listeTranche = res.content
+  onUpdateClient() {
+    if(this.initialForm.isClient == 1){
+      this.initialForm.idTypeprospect = 0
+    }
+
+    this.initialForm.idTypeprospect ??= 0;
+
+    console.log("format update", this.initialForm)
+    console.log("clientId", this.selectedClient.idClient)
+
+    this.clientService.updateClient(this.selectedClient.idClient, this.initialForm).subscribe({
+      next: res => {
+        console.log(res.message)
+        document.getElementById("modal-close-button")?.click();
+        this.toast.show(res.message, "success");
+        setTimeout(() => {
+          window.location.reload();
+        },3000);
+      },
+      error: err => {
+        console.log(err.error.message);
+        this.toast.show(err.error.message, 'error');
+      }
     });
   }
 
-  toggleTypeprospect() {
-    console.log(this.initialForm.isClient)
+  onSubmit(){
+    if(this.isEdit() && this.selectedClient){
+      console.log("Modification des infos client");
+      this.onUpdateClient();
+    }else {
+      console.log("Ajout");
+      this.addClient();
+    }
   }
-
-
 
 }

@@ -22,4 +22,12 @@ export class ClientService {
   getAllRegisteredClient(): Observable<ApiResponse<ClientResponse[]>> {
     return this.http.get<ApiResponse<ClientResponse[]>>(`${this.apiBaseUrl}/client`)
   }
+
+  updateClient(idClient: number, data: ClientRequest): Observable<ApiResponse<ClientResponse>> {
+    return this.http.put<ApiResponse<ClientResponse>>(`${this.apiBaseUrl}/client/${idClient}`, data)
+  }
+
+  getAllClientByEntreprise(idEts: number): Observable<ApiResponse<ClientResponse[]>> {
+    return this.http.get<ApiResponse<ClientResponse[]>>(`${this.apiBaseUrl}/client/get-by/entreprise/${idEts}`)
+  }
 }

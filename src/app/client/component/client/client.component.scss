@@ -70,13 +70,20 @@
         }
 
         td {
-          padding: 8px, 16px, 8px, 16px;
           button {
             color: #3b82f6;
             text-decoration: none;
-            background-color: rgb(226, 225, 225, 0.3);
             cursor: pointer;
-
+            padding: 0;
+            border: none;
+            margin-left: 5px;
+          }
+          .fa-edit {
+            color: #3b82f6;
+          }
+          .fa-trash {
+            margin-left: 10px;
+            color: red;
           }
         }
       }

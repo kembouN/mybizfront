@@ -1,3 +1,4 @@
+import { Enterprise } from "../../enterprise/models/enterprise"
 
 export interface LoginRequest{
   username: string,
@@ -10,4 +11,5 @@ export interface LoginResponse{
   lastconnexion: Date,
   idUser: number,
   token: string,
+  entreprises: Enterprise[]
 }

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, numberAttribute, OnInit } from '@angular/core';
 import { SideBarComponent } from "../../../shared/components/side-bar/side-bar.component";
 import { CustomModalComponent } from "../../../shared/components/custom-modal/custom-modal.component";
 import { ClientFormComponent } from "../client-form/client-form.component";
@@ -14,14 +14,23 @@ import { ClientResponse } from '../../models/client';
 export class ClientComponent implements OnInit{
 
   clientService = inject(ClientService);
+  edit = false;
 
   clientFormOpened = false;
   nomUtilisateur = localStorage.getItem("userName");
 
   listClients!: ClientResponse[];
+  clientToEdit!: ClientResponse;
+  etsId = numberAttribute(localStorage.getItem("etsId"));
 
   openClientForm(){
     this.clientFormOpened= true;
+  }
+
+  openEditClientForm(client: ClientResponse) {
+    this.clientFormOpened = true;
+    this.clientToEdit = {...client};
+    this.edit = true;
   }
 
   closeClientForm(){
@@ -29,9 +38,8 @@ export class ClientComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.clientService.getAllRegisteredClient().subscribe(res => {
+    this.clientService.getAllClientByEntreprise(this.etsId).subscribe(res => {
       this.listClients = res.content
-      console.log(this.listClients)
     });
   }
 

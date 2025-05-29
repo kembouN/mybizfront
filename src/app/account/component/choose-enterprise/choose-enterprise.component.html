@@ -6,11 +6,11 @@
   <div class="org-box">
     @if(entreprises.length != 0){
       @for (ets of entreprises; track ets.entrepriseId) {
-        <div class="org" (click)="onSelectEnterprise(ets.entrepriseId)">
+        <div class="org" (click)="onSelectEnterprise(ets)">
           <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" /> -->
           <div class="org-info">
             <p> <strong>{{ets.nom}}</strong></p>
-            <p>1120 clients</p>
+            <p>{{ets.nbrClient}} client(s)</p>
           </div>
           <span class="arrow">→</span>
         </div>

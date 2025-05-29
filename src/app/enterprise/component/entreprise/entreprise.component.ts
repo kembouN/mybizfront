@@ -4,11 +4,11 @@ import { CustomModalComponent } from "../../../shared/components/custom-modal/cu
 import { EntrepriseFormComponent } from "../entreprise-form/entreprise-form.component";
 import { EntrepriseService } from '../../service/entreprise.service';
 import { Enterprise } from '../../models/enterprise';
-import { CustomIconComponent } from "../../../shared/components/custom-icon/custom-icon.component";
+import { CommonHeaderComponent } from "../../../shared/components/common-header/common-header.component";
 
 @Component({
   selector: 'app-entreprise',
-  imports: [SideBarComponent, CustomModalComponent, EntrepriseFormComponent, CustomIconComponent],
+  imports: [SideBarComponent, CustomModalComponent, EntrepriseFormComponent, CommonHeaderComponent],
   templateUrl: './entreprise.component.html',
   styleUrl: './entreprise.component.scss'
 })
@@ -19,7 +19,6 @@ export class EntrepriseComponent implements OnInit{
   entrepriseFormOpened = false;
   edit = false;
 
-  nomUtilisateur = localStorage.getItem("userName");
   idUser = numberAttribute(localStorage.getItem("userId"));
   listeEts!: Enterprise[];
   etsToEdit!: Enterprise;

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, numberAttribute, OnInit } from '@angular/core';
 import { CustomModalComponent } from "../../../shared/components/custom-modal/custom-modal.component";
 import { EntrepriseFormComponent } from "../../../enterprise/component/entreprise-form/entreprise-form.component";
 import { EntrepriseService } from '../../../enterprise/service/entreprise.service';
@@ -22,6 +22,7 @@ export class ChooseEnterpriseComponent implements OnInit{
 
   enterpriseFormOpened = false;
 
+  userId = numberAttribute(localStorage.getItem("userId"));
   closeEtsForm() {
     this.enterpriseFormOpened = false
   }
@@ -35,11 +36,18 @@ export class ChooseEnterpriseComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.entreprises = JSON.parse(localStorage.getItem("userEts") ?? "[]");
+    this.loadEnterprises();
   }
 
-  onSelectEnterprise(etsId: number) {
-    localStorage.setItem("etsId", etsId.toString());
-    this.router.navigate(['/client'])
+  loadEnterprises(){
+    this.entrepriseService.getAllEntreprise(this.userId).subscribe( res => {
+      this.entreprises = res.content;
+    });
+  }
+
+  onSelectEnterprise(ets: Enterprise) {
+    localStorage.setItem("etsId", ets.entrepriseId.toString());
+    localStorage.setItem("nomEts", ets.nom);
+    this.router.navigate(['/client']);
   }
 }

@@ -9,22 +9,6 @@
     flex-direction: column;
     justify-content: space-between;
 
-    .common-header {
-      background-color: #007bff;
-      padding: 10px 50px 10px 20px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: end;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-      z-index: 1;
-      margin-bottom: 20px;
-      .nom-utilisateur {
-        font-size: 2rem;
-        font-family: 'Times New Roman', Times, serif;
-        font-weight: bold;
-      }
-    }
-
     main {
       padding: 8px;
       background-color: #ffffff;

@@ -23,7 +23,7 @@ export class RegisterComponent {
     email: "",
     username: "",
     pass: "",
-    cPass: "",
+    cpass: "",
   };
 username: any;
 
@@ -34,8 +34,8 @@ username: any;
         this.router.navigate(['login']);
       },
       error: (err) => {
-        console.log(err.err)
-        this.toast.show(err.error.message[0], 'error')
+        console.log(err)
+        this.toast.show(err.error.message, 'error')
       }
     })
   }

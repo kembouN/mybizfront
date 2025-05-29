@@ -1,14 +1,7 @@
 <div class="service-container">
   <app-side-bar></app-side-bar>
   <div class="main-services-content">
-    <div class="common-header">
-      <header>
-        <nav class="bg-blue-700 text-white p-4 flex justify-between items-center">
-          <div class="nom-utilisateur">@if (nomUtilisateur) {<span>{{nomUtilisateur}}</span>}</div>
-        </nav>
-      </header>
-    </div>
-
+    <app-common-header></app-common-header>
     <main class="flex-1 p-8">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-semibold">Liste des services</h2>
@@ -20,9 +13,6 @@
             <th class="py-2 px-4">#</th>
             <th class="py-2 px-4">Libellé</th>
             <th class="py-2 px-4">Description</th>
-            <th class="py-2 px-4">Durée initiale</th>
-            <th class="py-2 px-4">Quantité initiale</th>
-            <th class="py-2 px-4">Prix initial</th>
             <th class="py-2 px-4">Actions</th>
           </tr>
         </thead>
@@ -33,11 +23,9 @@
                 <td class="py-2 px-4">{{listService.indexOf(service)+1}}</td>
                 <td class="py-2 px-4">{{service.libelle}}</td>
                 <td class="py-2 px-4">{{service.description}}</td>
-                <td class="py-2 px-4">{{service.dureeInitiale}}</td>
-                <td class="py-2 px-4">{{service.qteInitiale}}</td>
-                <td class="py-2 px-4">{{service.prixInitial}}</td>
                 <td class="py-2 px-4">
-                  <button class="text-blue-600 hover:underline">Modifier</button>
+                  <button class="text-blue-600 hover:underline" (click)="openEditServiceForm(service)" title="Modifier"><i class="fas fa-edit"></i></button>
+                  <button class="text-blue-600 hover:underline" title="Supprimer"><i class="fas fa-trash"></i></button>
                 </td>
               </tr>
 
@@ -53,4 +41,6 @@
   </div>
 </div>
 
-<app-custom-modal [isVisible]="serviceFormOpened" [isCentered]="true" [modalTitle]="'Ajouter un nouveau service'" (close)="closeServiceForm()"><app-service-form></app-service-form></app-custom-modal>
+@if (serviceFormOpened) {
+  <app-custom-modal [isVisible]="serviceFormOpened" [isCentered]="true" [modalTitle]="edit ? 'Modifier un service' : 'Ajouter un nouveau service'" (close)="closeServiceForm()"><app-service-form [isEdit]="edit" [selectedService]="serviceToEdit"></app-service-form></app-custom-modal>
+}

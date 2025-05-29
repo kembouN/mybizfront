@@ -1,6 +1,12 @@
+import { Pays } from "../../shared/models/pays";
+
+export enum ClienType {
+  PERSONNE_PHYSIQUE,
+  PERSONNE_MORALE
+}
+
 export interface ClientRequest {
   idUser?: number,
-  idService?: number,
   idEntreprise?: number,
   emailUn: string,
   emailDeux?: string,
@@ -9,7 +15,13 @@ export interface ClientRequest {
   telephoneUn: string,
   telephoneDeux?: string,
   idTranche?: number,
-  idTypeprospect?: number
+  idTypeprospect?: number,
+  typeClient: string,
+  agentLiaison?: string,
+  paysId?: number,
+  ville: string,
+  adresse: string,
+  // isWhatsapp: number
 }
 
 export interface ClientResponse {
@@ -23,5 +35,11 @@ export interface ClientResponse {
   statut: string,
   tranche: string,
   trancheId: number,
-  typeprospectId: number
+  typeprospectId: number,
+  typeClient: string,
+  agentLiaison: string;
+  ville: string,
+  adresse: string,
+  pays: Pays,
+  // isWhatsapp: number
 }

@@ -21,4 +21,8 @@ export class ServicesService {
   getEntrepriseServices(idEntreprise: number): Observable<ApiResponse<ServiceResponse[]>> {
     return this.http.get<ApiResponse<ServiceResponse[]>>(`${this.apiBaseUrl}/service/getBy/entreprise/${idEntreprise}`)
   }
+
+  updateService(idService: number, data: ServiceRequest): Observable<ApiResponse<ServiceResponse>> {
+    return this.http.put<ApiResponse<ServiceResponse>>(`${this.apiBaseUrl}/service/${idService}`, data)
+  }
 }

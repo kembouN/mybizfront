@@ -5,6 +5,7 @@ import { ClientService } from '../../service/client.service';
 import { TrancheService } from '../../service/tranche.service';
 import { Tranche, Typeprospect } from '../../models/tranche-type-propect';
 import { ToastService } from '../../../shared/services/toast.service';
+import { Pays } from '../../../shared/models/pays';
 
 @Component({
   selector: 'app-client-form',
@@ -22,21 +23,27 @@ export class ClientFormComponent implements OnInit{
   initialForm!: ClientRequest;
   listeTranche!: Tranche[];
   listeTypeProspect!: Typeprospect[];
+  listePays!: Pays[];
   isEdit = input<boolean>();
-
+  etsId = numberAttribute(localStorage.getItem("etsId"));
   idUser = numberAttribute(localStorage.getItem("userId"));
+  codeTel!: string | undefined;
+  displayTelWhatsapp!: boolean;
 
   ngOnInit(): void {
+    this.codeTel = "";
     this.tranche.getAllProspect().subscribe(res =>{
       this.listeTypeProspect = res.content
     });
     this.tranche.getAllTranche().subscribe(res => {
       this.listeTranche = res.content
     });
+    this.clientService.getAllPays().subscribe(res => {
+      this.listePays = res.content
+    });
     if(this.selectedClient){
       this.initialForm = {
         idUser: this.idUser,
-        idService: 0,
         idEntreprise: 0,
         emailUn: this.selectedClient.emailUn,
         emailDeux: this.selectedClient.emailDeux,
@@ -45,14 +52,21 @@ export class ClientFormComponent implements OnInit{
         telephoneUn: this.selectedClient.telephoneUn,
         telephoneDeux: this.selectedClient.telephoneDeux,
         idTranche: this.selectedClient.trancheId,
-        idTypeprospect: this.selectedClient.typeprospectId
+        idTypeprospect: this.selectedClient.typeprospectId,
+        typeClient: this.selectedClient.typeClient,
+        agentLiaison: this.selectedClient.agentLiaison,
+        paysId: this.selectedClient.pays.idPays,
+        ville: this.selectedClient.ville,
+        adresse: this.selectedClient.adresse,
+        // isWhatsapp: this.selectedClient.isWhatsapp
       };
+      // this.codeTel = this.listePays.find( e => e.idPays === this.initialForm.paysId )?.codePays
+      // this.displayTelWhatsapp = this.initialForm.isWhatsapp != 0;
 
     }else {
       this.initialForm = {
         idUser: this.idUser,
-        idService: undefined,
-        idEntreprise: undefined,
+        idEntreprise: this.etsId,
         emailUn: "",
         emailDeux: "",
         nom: "",
@@ -60,8 +74,16 @@ export class ClientFormComponent implements OnInit{
         telephoneUn: "",
         telephoneDeux: "",
         idTranche: undefined,
-        idTypeprospect: undefined
+        idTypeprospect: undefined,
+        typeClient: "",
+        agentLiaison: "",
+        paysId: undefined,
+        ville: "",
+        adresse: "",
+        // isWhatsapp: this.displayTelWhatsapp ? 1 : 0
       };
+      this.displayTelWhatsapp = false;
+
     }
   }
 
@@ -72,6 +94,8 @@ export class ClientFormComponent implements OnInit{
   }
 
   addClient(){
+    console.log(this.initialForm);
+
     if(this.initialForm.isClient == 1){
       this.initialForm.idTypeprospect = 0
     }
@@ -126,6 +150,14 @@ export class ClientFormComponent implements OnInit{
       console.log("Ajout");
       this.addClient();
     }
+  }
+
+  onSelectPays(pays: Pays) {
+    this.codeTel = pays.codePays
+  }
+
+  onReset() {
+    this.codeTel= ""
   }
 
 }

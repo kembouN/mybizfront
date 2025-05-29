@@ -1,4 +1,4 @@
-import { Component, inject, Input, input, numberAttribute, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, Input, input, numberAttribute, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Enterprise, EnterpriseRequest } from '../../models/enterprise';
 import { EntrepriseService } from '../../service/entreprise.service';
@@ -48,7 +48,6 @@ export class EntrepriseFormComponent implements OnInit{
         ville: ""
       };
     }
-    console.log('InitialForm:', this.initialForm);
   }
 
   addEntreprise(){
@@ -57,7 +56,7 @@ export class EntrepriseFormComponent implements OnInit{
       next: (res) => {
       console.log(res.content)
       document.getElementById("modal-close-button")?.click();
-      window.location.reload();;
+      window.location.reload();
       this.toast.show(res.message, "success")
 
     },

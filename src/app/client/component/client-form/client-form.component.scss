@@ -1,19 +1,72 @@
 .client-form-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-left: 70px;
-  margin-right: 70px;
+  margin-left: 30px;
+  margin-right: 20px;
+  .form-bloc {
+    display: flex;
+    margin: 5px;
+    .choix-type {
+      margin: 15px 10px 15px 10px;
+
+      label {
+        display: inline;
+        width: 50px;
+        margin: 0px;
+        input[type="radio"] {
+          display: inline;
+          width: 20px;
+          margin: 0px;
+        }
+      }
+
+    }
+    .statut-client {
+      width: 50px;
+      margin: 5px;
+      padding: 5px;
+      input[type="radio"] {
+        display: inline;
+        width: 20px;
+      }
+    }
+  }
   input {
     width: 300px;
     padding: 0.7em;
     margin: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
+  }
 
+  .tel-whatsapp {
+    display: flex;
+    span {
+      display: inline-block;
+      width: 20px;
+      margin-left: 5px;
+      padding: 14px 0px 0px 5px;
+    }
+    input[type="checkbox"] {
+      width: 20px;
+    }
+    .telw {
+      width: 200px;
+    }
+    .tel {
+      width: 270px;
+    }
+    label{
+      margin-top: 10px;
+      font-size: 0.6rem;
+      input {
+        margin: 0px;
+      }
+    }
   }
 
   button[type="submit"] {
+    margin-left: 50px;
     background-color: #007bff;
     color: white;
     padding: 0.7em 1.2em;
@@ -27,8 +80,9 @@
 
   select {
     display: block;
-    height: 30px;
+    height: 37px;
     border-radius: 5px;
+    padding: 0.7em;
     width: 320px;
     margin: 5px;
   }
@@ -36,8 +90,7 @@
   .boutons {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    margin: 20px;
+    margin: 20px 20px 20px 250px;
   }
 
 }

@@ -4,10 +4,11 @@ import { CustomModalComponent } from "../../../shared/components/custom-modal/cu
 import { CommandesFormComponent } from "../commandes-form/commandes-form.component";
 import { CommandeService } from '../../service/commande.service';
 import { CommandeResponse } from '../../models/commande';
+import { CommonHeaderComponent } from "../../../shared/components/common-header/common-header.component";
 
 @Component({
   selector: 'app-commandes',
-  imports: [SideBarComponent, CustomModalComponent, CommandesFormComponent],
+  imports: [SideBarComponent, CustomModalComponent, CommandesFormComponent, CommonHeaderComponent],
   templateUrl: './commandes.component.html',
   styleUrl: './commandes.component.scss'
 })

@@ -21,6 +21,7 @@ export class AuthService {
   }
 
   userRegistration(data: RegisterRequest): Observable<ApiResponse<any>>{
+    console.log(data);
     return this.http.post<ApiResponse<any>>(`${this.apiBaseUrl}/user/register`, data);
   }
 
@@ -42,7 +43,6 @@ export class AuthService {
   }
 
   logout(): void{
-    // localStorage.removeItem("userToken");
     localStorage.clear();
     this.router.navigateByUrl('/login');
   }

@@ -23,5 +23,6 @@ export interface Enterprise{
   logo: Blob,
   responsable: string
   pays: string,
-  ville: string
+  ville: string,
+  nbrClient: number
 }

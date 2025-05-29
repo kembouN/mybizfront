@@ -18,6 +18,10 @@
     margin-right: 0.5rem;
   }
 
+  label {
+    display: block;
+  }
+
   button[type="submit"] {
     background-color: #007bff;
     color: white;
@@ -45,4 +49,8 @@
     margin: 20px;
   }
 
+}
+
+::ng-deep app-custom-modal .modal {
+  width: 400px;
 }

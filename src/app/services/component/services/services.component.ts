@@ -4,10 +4,11 @@ import { CustomModalComponent } from '../../../shared/components/custom-modal/cu
 import { ServiceFormComponent } from "../service-form/service-form.component";
 import { ServicesService } from '../../service/services.service';
 import { ServiceResponse } from '../../models/services';
+import { CommonHeaderComponent } from "../../../shared/components/common-header/common-header.component";
 
 @Component({
   selector: 'app-services',
-  imports: [SideBarComponent, CustomModalComponent, ServiceFormComponent],
+  imports: [SideBarComponent, CustomModalComponent, ServiceFormComponent, CommonHeaderComponent],
   templateUrl: './services.component.html',
   styleUrl: './services.component.scss'
 })
@@ -20,9 +21,16 @@ export class ServicesComponent implements OnInit{
 
   nomUtilisateur = localStorage.getItem("userName");
   etsId = numberAttribute(localStorage.getItem("etsId"));
-
+  serviceToEdit!: ServiceResponse;
+  edit = false;
 
   listService!: ServiceResponse[];
+
+  openEditServiceForm(service: ServiceResponse) {
+    this.serviceFormOpened = true;
+    this.serviceToEdit = {...service};
+    this.edit = true;
+  }
 
   openServiceForm(){
     this.serviceFormOpened= true;
@@ -35,7 +43,6 @@ export class ServicesComponent implements OnInit{
   ngOnInit(): void {
     this.servicesService.getEntrepriseServices(this.etsId).subscribe(res =>{
       this.listService = res.content
-      console.log(res.message)
     })
   }
 

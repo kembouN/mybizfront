@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment.development';
 import { ClientRequest, ClientResponse } from '../models/client';
 import { Observable } from 'rxjs';
 import { ApiResponse } from '../../shared/models/api-response';
+import { Pays } from '../../shared/models/pays';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,9 @@ export class ClientService {
 
   getAllClientByEntreprise(idEts: number): Observable<ApiResponse<ClientResponse[]>> {
     return this.http.get<ApiResponse<ClientResponse[]>>(`${this.apiBaseUrl}/client/get-by/entreprise/${idEts}`)
+  }
+
+  getAllPays(): Observable<ApiResponse<Pays[]>> {
+    return this.http.get<ApiResponse<Pays[]>>(`${this.apiBaseUrl}/pays`)
   }
 }

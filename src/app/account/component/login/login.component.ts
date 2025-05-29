@@ -26,9 +26,8 @@ export class LoginComponent {
   onSubmit(): void{
     this.authService.userLogin(this.initialLoginRequest).subscribe({
       next:(res) =>{
-        localStorage.setItem("userEts", JSON.stringify(res.content.entreprises))
         localStorage.setItem("userToken", res.content.token);
-        localStorage.setItem("userId", res.content.idUser ? res.content.idUser.toString() : "");
+        localStorage.setItem("userId", res.content.idUser.toString());
         localStorage.setItem("userName", res.content.username);
         localStorage.setItem("userEmail", res.content.email);
         this.router.navigate(['/choose-enterprise']);

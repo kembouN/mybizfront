@@ -4,10 +4,11 @@ import { CustomModalComponent } from "../../../shared/components/custom-modal/cu
 import { ClientFormComponent } from "../client-form/client-form.component";
 import { ClientService } from '../../service/client.service';
 import { ClientResponse } from '../../models/client';
+import { CommonHeaderComponent } from "../../../shared/components/common-header/common-header.component";
 
 @Component({
   selector: 'app-client',
-  imports: [SideBarComponent, CustomModalComponent, ClientFormComponent],
+  imports: [SideBarComponent, CustomModalComponent, ClientFormComponent, CommonHeaderComponent],
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
 })

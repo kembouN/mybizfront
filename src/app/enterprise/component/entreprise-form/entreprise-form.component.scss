@@ -10,7 +10,10 @@
     margin: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
+  }
 
+  label {
+    margin: 5px;
   }
 
   button[type="submit"] {
@@ -24,6 +27,11 @@
       background-color: #0056b3;
     }
   }
+  textarea {
+    min-height: 100px;
+    min-width: 310px;
+    margin-left: 7px;
+  }
 
   .boutons {
     display: flex;
@@ -32,4 +40,7 @@
     margin: 20px;
   }
 
+}
+::ng-deep app-custom-modal .modal {
+  width: 400px;
 }

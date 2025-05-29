@@ -26,18 +26,18 @@ export class CommandesFormComponent implements OnInit{
   listeService!: ServiceResponse[];
 
   initialForm: CommandeRequest = {
-    idService: undefined as number |undefined,
-    idClient: undefined as number |undefined,
-    avance: undefined as number |undefined,
-    dateAvance: undefined as undefined | Date,
-    dateContact: undefined as undefined | Date,
-    dateDebut: undefined as undefined | Date,
-    qte: undefined as number |undefined,
-    duree: undefined as number |undefined,
+    idService: undefined ,
+    idClient: undefined ,
+    avance: undefined ,
+    dateAvance: undefined ,
+    dateContact: undefined ,
+    dateDebut: undefined ,
+    qte: undefined ,
+    duree: undefined ,
     paye: false,
-    datePaiement: undefined as undefined | Date,
+    datePaiement: undefined ,
     statut: "",
-    dateFin: undefined as undefined | Date
+    dateFin: undefined
   };
 
   avancePayee = false;
@@ -50,6 +50,7 @@ export class CommandesFormComponent implements OnInit{
         document.getElementById("modal-close-button")?.click();
         console.log(res.content);
         this.toast.show(res.message, "success");
+        window.location.reload();
       },
       error: (err) => {
         console.log(err);

@@ -39,3 +39,6 @@
   }
 
 }
+::ng-deep app-custom-modal .modal {
+  width: 400px;
+}

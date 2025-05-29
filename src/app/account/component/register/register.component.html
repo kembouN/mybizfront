@@ -3,9 +3,9 @@
   <h2>Inscription sur <span class="brand">MyBizCopilot</span></h2>
   <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
     <input type="text" name="username" [(ngModel)]="initialUser.username" placeholder="Nom complet" required #username="ngModel"/>
-    <input type="email" name="email" [(ngModel)]="initialUser.email" placeholder="Email" required #email="ngModel"/>
-    <input type="password" name="pass" [(ngModel)]="initialUser.pass" placeholder="Mot de passe" required #pass="ngModel"/>
-    <input type="password" name="cPass" [(ngModel)]="initialUser.cPass" placeholder="Confirmer le mot de passe" required #cPass="ngModel"/>
+    <input type="email" name="email" [(ngModel)]="initialUser.email" placeholder="Email*" required #email="ngModel"/>
+    <input type="password" name="pass" [(ngModel)]="initialUser.pass" placeholder="Mot de passe*" required #pass="ngModel"/>
+    <input type="password" name="cPass" [(ngModel)]="initialUser.cpass" placeholder="Confirmer le mot de passe*" required #cPass="ngModel"/>
     <button type="submit">S'inscrire</button>
   </form>
   <p>Déjà inscrit ? <a routerLink="/login" routerLinkActive="active">Se connecter</a></p>

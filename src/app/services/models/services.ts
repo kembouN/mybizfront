@@ -4,7 +4,7 @@ export interface ServiceRequest {
   description: string,
   libelle: string,
   dureeInitiale?: number,
-  prixInitial: number,
+  prixInitial?: number,
   qteInitiale?: number
 }
 

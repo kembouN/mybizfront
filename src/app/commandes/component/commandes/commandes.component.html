@@ -13,15 +13,12 @@
           <tr>
             <th class="py-2 px-4">#</th>
             <th class="py-2 px-4">client</th>
-            <th class="py-2 px-4">Service</th>
             <th class="py-2 px-4">Date de la commande</th>
-            <th class="py-2 px-4">Date de début</th>
-            <th class="py-2 px-4">Quatité</th>
-            <th class="py-2 px-4">Durée</th>
-            <th class="py-2 px-4">Date de fin</th>
+            <th class="py-2 px-4">Délai</th>
             <th class="py-2 px-4">Coût total</th>
-            <th class="py-2 px-4">Avance payé</th>
+            <th class="py-2 px-4">Avance payée</th>
             <th class="py-2 px-4">Facture réglée</th>
+            <th>Collaborateur assigné</th>
             <th class="py-2 px-4">Statut</th>
             <th class="py-2 px-4">Actions</th>
           </tr>
@@ -32,19 +29,17 @@
               <tr class="border-b">
                 <td class="py-2 px-4">{{listCommandes.indexOf(commande) + 1}}</td>
                 <td class="py-2 px-4">{{commande.client}}</td>
-                <td class="py-2 px-4">{{commande.service}}</td>
                 <td class="py-2 px-4">{{commande.dateCommande}}</td>
-                <td class="py-2 px-4">{{commande.dateDebut}}</td>
-                <td class="py-2 px-4">{{commande.qte}}</td>
-                <td class="py-2 px-4">{{commande.duree}}</td>
                 <td class="py-2 px-4">{{commande.dateFin}}</td>
                 <td class="py-2 px-4">{{commande.cout}}</td>
                 <td class="py-2 px-4">{{commande.avance}}</td>
                 <td class="py-2 px-4" >@if (commande.paye) {<span>Oui, le {{commande.datePaiement}}</span>}@else {<span>Non</span>}</td>
+                <td>@if (commande.collaborateur) { {{commande.collaborateur}} }@else {...}</td>
                 <td class="py-2 px-4">{{commande.statutCommande}}</td>
                 <td class="action-btn">
-                  <button class="text-blue-600 hover:underline" (click)="openCommandemodal()"><i class="fas fa-edit" title="Modifier"></i></button>
-                  <button> <i class="fas fa-trash" title="Supprimer"></i></button>
+                  <button class="text-blue-600 hover:underline" (click)="openEditModal(commande)"><i class="fas fa-edit" title="Modifier"></i></button>
+                  <button (click)="openAffectModal(commande.idCommande)"><i class="fas fa-hand-holding-hand" title="Assigner"></i></button>
+                  <button (click)="terminateCommande(commande.idCommande)"><i class="fas fa-circle-check" title="Commande terminée"></i></button>
                 </td>
               </tr>
             }
@@ -58,5 +53,10 @@
     </main>
   </div>
 </div>
+@if (affectCollabModalOpened) {
+  <app-custom-modal [isCentered]="true" [isVisible]="affectCollabModalOpened" [modalTitle]="'Confirmation d\'assignation'" (close)="closeCommandemodal()"><app-commande-affectation-form [idCommande]="idCommandToAssign"></app-commande-affectation-form></app-custom-modal>
+}
 
-<app-custom-modal [isCentered]="true" [isVisible]="commandeFormOpened" [modalTitle]="'Ajouter une nouvelle commande'" (close)="closeCommandemodal()"><app-commandes-form></app-commandes-form></app-custom-modal>
+@if (commandeFormOpened) {
+  <app-custom-modal [isCentered]="true" [isVisible]="commandeFormOpened" [modalTitle]="edit ?  'Modifier la commande' : 'Ajouter une nouvelle commande'" (close)="closeCommandemodal()"><app-commandes-form [isEdit]="edit" [selectedCommande]="commandeToEdit"></app-commandes-form></app-custom-modal>
+}

@@ -20,7 +20,6 @@ export class ServiceFormComponent implements OnInit{
   @Input() selectedService!: ServiceResponse;
   idEntreprise = numberAttribute(localStorage.getItem("etsId"))
   idUser = numberAttribute(localStorage.getItem("userId"));
-  serviceFormOpened = false;
   isEdit = input<boolean>();
   initialForm!: ServiceRequest;
 
@@ -34,7 +33,7 @@ export class ServiceFormComponent implements OnInit{
       };
       console.log(this.initialForm);
       console.log(this.selectedService);
-      
+
     }else {
       this.initialForm = {
         idUser: this.idUser,
@@ -45,16 +44,14 @@ export class ServiceFormComponent implements OnInit{
     }
   }
 
-  closeServiceForm(){
-    this.serviceFormOpened= false;
-  }
-
   addService(){
     this.serviceService.addService(this.initialForm).subscribe({
       next: (res) => {
         this.toast.show(res.message, "success")
         document.getElementById("modal-close-button")?.click();
-        this.router.navigate(['services']);
+        setTimeout(() => {
+          window.location.reload();
+        },3000);
       },
       error: (err) => {
         this.toast.show(err.error.message, 'error')
@@ -82,7 +79,7 @@ export class ServiceFormComponent implements OnInit{
 
   onSubmit() {
     if(this.isEdit() && this.selectedService) {
-      console.log("Modofication du service")
+      console.log("Modification du service")
       this.onUpdateService();
     }else {
       console.log("Nouveau service");

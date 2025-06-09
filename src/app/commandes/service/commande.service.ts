@@ -22,4 +22,16 @@ export class CommandeService {
   getAllCommandesByEntreprise(idEntreprise: number): Observable<ApiResponse<CommandeResponse[]>> {
     return this.http.get<ApiResponse<CommandeResponse[]>>(`${this.apiBaseUrl}/commande/get-by/entreprise/${idEntreprise}`)
   }
+
+  updateCommande(idCommande: number, data: CommandeRequest): Observable<ApiResponse<any>> {
+    return this.http.put<ApiResponse<any>>(`${this.apiBaseUrl}/commande/${idCommande}`, data)
+  }
+
+  affectToCollaborateur(idCommande: number, idCollaborateur: number):Observable<ApiResponse<any>> {
+    return this.http.post<ApiResponse<any>>(`${this.apiBaseUrl}/commande/${idCommande}/affect/${idCollaborateur}`, null);
+  }
+
+  commandeDone(idCommande:number): Observable<ApiResponse<any>> {
+    return this.http.post<ApiResponse<any>>(`${this.apiBaseUrl}/commande/${idCommande}/make-done`, null)
+  }
 }

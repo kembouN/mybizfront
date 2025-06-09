@@ -41,6 +41,16 @@ export const routes: Routes = [
     loadComponent: () => import('./dashboard/component/dashboard.component').then(c => c.DashboardComponent)
   },
   {
+    path:"sous-services",
+    loadComponent: () => import('./sous-service/components/sous-service/sous-service.component').then(c => c.SousServiceComponent),
+    canActivate: [authGuard]
+  },
+  {
+    path: "collaborateurs",
+    loadComponent: () => import('./collaborateur/component/collaborateur/collaborateur.component').then(c => c.CollaborateurComponent),
+    canActivate: [authGuard]
+  },
+  {
     path: "",
     component: LoginComponent
   }

@@ -4,6 +4,8 @@ import { Enterprise, EnterpriseRequest } from '../../models/enterprise';
 import { EntrepriseService } from '../../service/entreprise.service';
 import { ToastService } from '../../../shared/services/toast.service';
 import { Router } from '@angular/router';
+import { ClientService } from '../../../client/service/client.service';
+import { Pays } from '../../../shared/models/pays';
 
 @Component({
   selector: 'app-entreprise-form',
@@ -14,28 +16,35 @@ import { Router } from '@angular/router';
 export class EntrepriseFormComponent implements OnInit{
 
   entrepriseService = inject(EntrepriseService);
+  clientService = inject(ClientService);
   toast = inject(ToastService);
   router = inject(Router);
 
   isEdit = input<boolean>();
-
+  codeTel = "";
   idUser = numberAttribute(localStorage.getItem("userId"));
   @Input() selectedEts!: Enterprise;
   initialForm!: EnterpriseRequest;
+  listPays!: Pays[];
 
 
   ngOnInit(): void {
+    this.clientService.getAllPays().subscribe(res => {
+      this.listPays = res.content
+    });
     if (this.selectedEts) {
       this.initialForm = {
         idUser: this.idUser,
-        description: this.selectedEts.description || "",
-        nom: this.selectedEts.nom || "",
-        email: this.selectedEts.email || "",
-        telephone1: this.selectedEts.telephone1 || undefined,
-        telephone2: this.selectedEts.telephone2 || undefined,
-        pays: this.selectedEts.pays || "",
-        ville: this.selectedEts.ville || ""
+        description: this.selectedEts.description,
+        nom: this.selectedEts.nom,
+        email: this.selectedEts.email,
+        telephone1: this.selectedEts.telephone1,
+        telephone2: this.selectedEts.telephone2,
+        idPays: this.selectedEts.pays.idPays,
+        ville: this.selectedEts.ville
       };
+      this.codeTel = this.selectedEts.pays.codePays;
+
     } else {
       this.initialForm = {
         idUser: this.idUser,
@@ -44,7 +53,7 @@ export class EntrepriseFormComponent implements OnInit{
         email: "",
         telephone1: undefined,
         telephone2: undefined,
-        pays: "",
+        idPays: "",
         ville: ""
       };
     }
@@ -56,7 +65,9 @@ export class EntrepriseFormComponent implements OnInit{
       next: (res) => {
       console.log(res.content)
       document.getElementById("modal-close-button")?.click();
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      },3000);
       this.toast.show(res.message, "success")
 
     },
@@ -72,7 +83,9 @@ export class EntrepriseFormComponent implements OnInit{
       next: res => {
         console.log(res.message)
         document.getElementById("modal-close-button")?.click();
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        },3000);
         this.toast.show(res.message, "success");
       },
       error:(err) => {
@@ -90,5 +103,9 @@ export class EntrepriseFormComponent implements OnInit{
       console.log("Ajout simple");
       this.addEntreprise();
     }
+  }
+
+  onSelectPays(pays: Pays) {
+    this.codeTel = pays.codePays
   }
 }

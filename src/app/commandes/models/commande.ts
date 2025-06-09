@@ -1,31 +1,34 @@
+export interface ElementCommandeRequest {
+  idElement?: number | string,
+  idSousservice: number | string,
+  quantite: number | string,
+  prix: number |string
+};
+
 export interface CommandeRequest {
-  idService?: number,
-  idClient?: number,
+  idClient?: string | number,
   avance?: number,
   dateAvance?: Date,
   dateContact?: Date,
-  dateDebut?: Date,
-  qte?: number,
-  duree?: number,
-  paye?: boolean,
+  paye?: number,
   datePaiement?: Date,
-  statut?:string,
-  dateFin?: Date
-}
+  dateFin?: Date,
+  items: ElementCommandeRequest[]
+};
 
 export interface CommandeResponse {
+  idClient: number;
   idCommande:number,
   client: string,
   service: string,
   dateCommande: Date,
-  dateDebut: Date,
-  qte: number,
-  duree: number,
   dateFin: Date
   cout: number,
   avance: number,
   dateAvance: Date,
-  paye: boolean,
+  paye: number,
   statutCommande: string,
-  datePaiement: Date
-}
+  collaborateur: string,
+  datePaiement: Date,
+  elements:ElementCommandeRequest[]
+};

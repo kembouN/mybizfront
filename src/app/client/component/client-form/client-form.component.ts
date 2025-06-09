@@ -44,7 +44,7 @@ export class ClientFormComponent implements OnInit{
     if(this.selectedClient){
       this.initialForm = {
         idUser: this.idUser,
-        idEntreprise: 0,
+        idEntreprise: this.etsId,
         emailUn: this.selectedClient.emailUn,
         emailDeux: this.selectedClient.emailDeux,
         nom: this.selectedClient.nomClient,
@@ -73,11 +73,11 @@ export class ClientFormComponent implements OnInit{
         isClient: 0,
         telephoneUn: "",
         telephoneDeux: "",
-        idTranche: undefined,
-        idTypeprospect: undefined,
+        idTranche: 0,
+        idTypeprospect: 0,
         typeClient: "",
         agentLiaison: "",
-        paysId: undefined,
+        paysId: 0,
         ville: "",
         adresse: "",
         // isWhatsapp: this.displayTelWhatsapp ? 1 : 0
@@ -94,14 +94,15 @@ export class ClientFormComponent implements OnInit{
   }
 
   addClient(){
-    console.log(this.initialForm);
-
     if(this.initialForm.isClient == 1){
       this.initialForm.idTypeprospect = 0
     }
+
+    if(this.initialForm.typeClient == "PERSONNE MORALE") {
+      this.initialForm.idTranche = 0
+    }
     this.clientService.addClient(this.initialForm).subscribe({
       next:(res) =>{
-        console.log(res);
         this.toast.show(res.message, 'success');
         document.getElementById("modal-close-button")?.click();
         setTimeout(() => {
@@ -120,11 +121,11 @@ export class ClientFormComponent implements OnInit{
     if(this.initialForm.isClient == 1){
       this.initialForm.idTypeprospect = 0
     }
+    if(this.initialForm.typeClient == "PERSONNE MORALE") {
+      this.initialForm.idTranche = 0
+    }
 
     this.initialForm.idTypeprospect ??= 0;
-
-    console.log("format update", this.initialForm)
-    console.log("clientId", this.selectedClient.idClient)
 
     this.clientService.updateClient(this.selectedClient.idClient, this.initialForm).subscribe({
       next: res => {
@@ -152,8 +153,15 @@ export class ClientFormComponent implements OnInit{
     }
   }
 
-  onSelectPays(pays: Pays) {
-    this.codeTel = pays.codePays
+  onSelectPays() {
+    this.listePays.forEach(pays => {
+      if(pays.idPays === this.initialForm.paysId) {
+        console.log(pays);
+        this.codeTel = pays.codePays;
+        console.log(this.codeTel);
+
+      }
+    })
   }
 
   onReset() {

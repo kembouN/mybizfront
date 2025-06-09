@@ -1,9 +1,0 @@
-<div class="container-block">
-  <span class="default-label">{{title}}</span>
-  <select [title]="title" [name]="name" [id]="id" [style.width.%]="width" [style.height.px]="height" [style.border-radius.px]="borderRadius">
-    <option value= {{defaultValue}}>{{defaultValue}}</option>
-    @for (item of values; track $index) {
-      <option value={{item}} >{{item}}</option>
-    }
-  </select>
-</div>

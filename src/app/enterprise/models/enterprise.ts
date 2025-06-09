@@ -1,3 +1,4 @@
+import { Pays } from "../../shared/models/pays"
 
 export interface EnterpriseRequest{
   idUser: number
@@ -6,7 +7,7 @@ export interface EnterpriseRequest{
   description?: string,
   telephone1?: number,
   telephone2?: number,
-  pays?: string,
+  idPays?: number | string,
   ville?: string,
   // logo: File
 }
@@ -22,7 +23,7 @@ export interface Enterprise{
   localisation: string,
   logo: Blob,
   responsable: string
-  pays: string,
+  pays: Pays,
   ville: string,
   nbrClient: number
 }

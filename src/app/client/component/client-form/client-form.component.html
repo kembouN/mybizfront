@@ -25,7 +25,7 @@
 
         @if (!initialForm.isClient) {
           <select name="type_prospect" [(ngModel)]="initialForm.idTypeprospect" title="Sélectionnez le type de prospect" #idTypeprospect="ngModel">
-            <option value="">Choix du type de prospect...</option>
+            <option value="0">Choix du type de prospect...</option>
             @for (typeprospect of listeTypeProspect; track typeprospect.idTypeprospect) {
               <option value="{{typeprospect.idTypeprospect}}">{{typeprospect.libelleTypeprospect}}</option>
             }
@@ -36,13 +36,17 @@
       </div>
 
       <div class="bloc-form">
-        <select name="pays" id="" title="Choisir un pays" [(ngModel)]="initialForm.paysId">
-          <option value="Choisir un pays">Choisir un pays...</option>
+        <select name="pays" id="" title="Choisir un pays" [(ngModel)]="initialForm.paysId" (change)="onSelectPays()">
+          <option value="0">Choisir un pays...</option>
           @for (pays of listePays; track pays.idPays) {
-            <option value="{{pays.idPays}}" (click) ="onSelectPays(pays)"> {{pays.libellePays}} </option>
+            <option value="{{pays.idPays}}"> {{pays.libellePays}} </option>
           }
         </select>
 
+        <div class="tel-whatsapp">
+          <span>{{codeTel}}</span>
+          <input type="tel" name="tel2" [(ngModel)]="initialForm.telephoneDeux" class="tel" placeholder=" Autre numéro de téléphone" #telephoneDeux="ngModel"/>
+        </div>
         <div class="tel-whatsapp">
           <span>{{codeTel}}</span>
           <input type="tel" name="tel1" [(ngModel)]="initialForm.telephoneUn" class="telw" [disabled]="!displayTelWhatsapp" placeholder=" Numéro de téléphone whatsapp" telephoneUn="ngModel"/>
@@ -51,10 +55,7 @@
             <input type="checkbox" name="whatsapp" [(ngModel)]="displayTelWhatsapp">
           </label>
         </div>
-        <div class="tel-whatsapp">
-          <span>{{codeTel}}</span>
-          <input type="tel" name="tel2" [(ngModel)]="initialForm.telephoneDeux" class="tel" placeholder=" Autre numéro de téléphone" #telephoneDeux="ngModel"/>
-        </div>
+
 
         @if (initialForm.typeClient === "PERSONNE MORALE") {
           <input type="text" name="agent_liaison" [(ngModel)]="initialForm.agentLiaison" placeholder="Nom de l'agent de liaison">
@@ -62,9 +63,9 @@
         <input type="text" name="ville" [(ngModel)]="initialForm.ville" placeholder="Ville du client">
         <input type="text" name="adresse" [(ngModel)]="initialForm.adresse" placeholder="Quartier, adresse">
 
-        @if (initialForm.typeClient == "PERSONNE PHYSIQUE") {
+        @if (initialForm.typeClient === "PERSONNE PHYSIQUE") {
           <select name="tranche" [(ngModel)]="initialForm.idTranche" title="Sélectionnez une tranche d'age" #idTranche="ngModel">
-            <option value="">Tranche d'âge...</option>
+            <option value="0">Tranche d'âge...</option>
             @for (tranche of listeTranche; track tranche.idTranche) {
               <option value="{{tranche.idTranche}}">{{tranche.libelleTranche}}</option>
             }

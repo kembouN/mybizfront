@@ -9,8 +9,8 @@ import { CustomButtonComponent } from "../custom-button/custom-button.component"
 })
 export class CustomModalComponent {
 
-  isVisible = input.required<boolean>();
-  isCentered = input.required<boolean>();
+  isVisible = input<boolean>();
+  isCentered = input<boolean>();
   modalTitle = input.required<string>();
   showChange = output<boolean>();
   close = output();

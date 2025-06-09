@@ -6,19 +6,19 @@ export enum ClienType {
 }
 
 export interface ClientRequest {
-  idUser?: number,
-  idEntreprise?: number,
+  idUser: number,
+  idEntreprise: number,
   emailUn: string,
-  emailDeux?: string,
+  emailDeux: string,
   nom: string,
   isClient: number,
   telephoneUn: string,
-  telephoneDeux?: string,
-  idTranche?: number,
-  idTypeprospect?: number,
+  telephoneDeux: string,
+  idTranche: number,
+  idTypeprospect: number,
   typeClient: string,
-  agentLiaison?: string,
-  paysId?: number,
+  agentLiaison: string,
+  paysId: number,
   ville: string,
   adresse: string,
   // isWhatsapp: number

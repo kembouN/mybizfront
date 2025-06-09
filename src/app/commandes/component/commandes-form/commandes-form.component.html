@@ -1,53 +1,73 @@
 <div class="commande-form-container">
-  <form #commandeForm="ngForm" (ngSubmit)="addCommande()">
-    <select name="client_id" [(ngModel)]="initialForm.idClient" title="Sélectionnez un client" #idClient="ngModel">
-      <option>Choisissez le client...</option>
-      @for (client of listeClients; track client.idClient) {
-        <option value="{{client.idClient}}">{{client.nomClient}}</option>
-      }
-    </select>
+  <form #commandeForm="ngForm" (ngSubmit)="onSubmit()">
+    <div  class="commande-form">
+      <div class="command-part">
+        <div class="part">
+          <select name="client_id" [(ngModel)]="initialForm.idClient" title="Sélectionnez un client" #idClient="ngModel">
+            <option value="">Choisissez le client...</option>
+            @for (client of listeClients; track client.idClient) {
+              <option value="{{client.idClient}}">{{client.nomClient}}</option>
+            }
+          </select>
 
-    <select name="service_id" [(ngModel)]="initialForm.idService" title="Sélectionnez un service" #idService="ngModel">
-      <option value="">Choix du service...</option>
-      @for (service of listeService; track service.idService) {
-        <option value="{{service.idService}}">{{service.libelle}}</option>
-      }
-    </select>
+          <label for="">
+            Date de la commande
+            <input type="date" name="commande-date" [(ngModel)]="initialForm.dateContact" placeholder="Entrez la date de la commande" required #dateContact="ngModel"/>
+          </label>
+          <label for="">
+            Commande totalement payée?
+            <input type="checkbox" name="paye" [(ngModel)]="initialForm.paye" required #paye="ngModel" (change)="togglepaye($event)"/>
+          </label>
+        </div>
+        <div class="part">
+          @if (initialForm.paye == 0 || initialForm.paye == undefined) {
+            <input type="number" name="avance" [(ngModel)]="initialForm.avance" placeholder="Montant de l'avance" required #emailUn="ngModel"/>
+            <label for="">
+              Date de l'avance payée
+              <input type="date" name="date-avance" [(ngModel)]="initialForm.dateAvance" placeholder="Date de paiment de l'avance" #emailDeux="ngModel"/>
+            </label>
+          }@else {
+            <label for="">
+              Date de paiement total de la facture
+              <input type="date" name="paiement-date" [(ngModel)]="initialForm.datePaiement" placeholder="Quantité d'article" #qte="ngModel"/>
+            </label>
+          }
+          <label for="">
+            Date probable de livraison
+            <input type="date" name="date-fin" [(ngModel)]="initialForm.dateFin" placeholder="Date probable de livraison" required #paye="ngModel" />
+          </label>
+        </div>
 
-    <input type="date" name="commande-date" [(ngModel)]="initialForm.dateContact" placeholder="Entrez la date de la commande" required #dateContact="ngModel"/>
-    <label for="">
-      Une avance a t-elle été payée?
-      <input type="checkbox" [(ngModel)]="avancePayee" name="avancePee"/>
-    </label>
-    @if (avancePayee) {
-      <input type="number" name="avance" [(ngModel)]="initialForm.avance" placeholder="Montant de l'avance" required #emailUn="ngModel"/>
-      <input type="date" name="date-avance" [(ngModel)]="initialForm.dateAvance" placeholder="Date de paiment de l'avance" #emailDeux="ngModel"/>
-    }
-    <input type="date" name="dateDebut" [(ngModel)]="initialForm.dateDebut" placeholder="Date de début pour la commande" required #dateDebut="ngModel"/>
-    <label for="">
-      Evaluation quantitaive de la commande?
-      <input type="checkbox" [(ngModel)]="quantitative" name="qte"/>
-    </label>
-    @if (quantitative) {
-      <input type="number" name="qte" [(ngModel)]="initialForm.qte" placeholder="Quantité d'article" #qte="ngModel"/>
-    }@else {
-      <input type="number" name="duree" [(ngModel)]="initialForm.duree" placeholder="Durée de réalisation de la commande" #duree="ngModel"/>
-    }
-    <label for="">
-      Commande totalement payée?
-      <input type="checkbox" name="paye" [(ngModel)]="initialForm.paye" required #paye="ngModel" />
-    </label>
-    @if(initialForm.paye){
-      <input type="date" name="datePaiement" [(ngModel)]="initialForm.datePaiement" placeholder="Date de paiement total" #datePaiement="ngModel">
-    }
-    <select name="statut" [(ngModel)]="initialForm.statut" title=" Statut de la commande" #statut="ngModel">
-      <option value="">Statut de la commande...</option>
-      <option value="EN ATTENTE">En attente</option>
-      <option value="EN COURS">En cours</option>
-      <option value="TERMINEE">Terminé</option>
-      <option value="ANNULEE">Annulée</option>
-      <option value="LIVREE">Livrée</option>
-    </select>
+      </div>
+
+        <fieldset formGroupName="servicesCommandes" class="element-part">
+          <legend>Services commandés</legend>
+          <label id="montant_total">
+            Montant total
+            <input type="text" name="total" readonly class="montant-total" [(ngModel)]="montantTotal">
+          </label>
+          <select name="sousservice" title="Sélectionnez un sous-service" [(ngModel)]="element.idSousservice">
+            <option value="">Sous-service...</option>
+            @for (sousservice of listeSousservice; track sousservice.idSousService){
+              <option value="{{sousservice.idSousService}}">{{sousservice.libelle}}</option>
+            }
+          </select>
+          <input type="number" name="quantite" [(ngModel)]="element.quantite" placeholder="Quantité">
+          <input type="number" name="prix" [(ngModel)]="element.prix" placeholder="Prix unitaire" (input)="montantTotalElement()">
+          <button type="button" (click)="addElementToCommande()">+</button>
+
+          @for (item of initialForm.items; track item.idSousservice) {
+            <div class="afficher-sousservice">
+              <input type="text" name="sousservice" readonly value="{{findSousServiceLibelle(item.idSousservice)}}" class="sous-name">
+              <input type="text" name="quantite" readonly value="{{item.quantite}}">
+              <input type="text" name="prix" readonly value="{{item.prix}}">
+              <button type="button" (click)="removeElementToCommande(element)">-</button>
+            </div>
+          }
+
+        </fieldset>
+
+    </div>
     <div class="boutons">
       <button type="reset">Annuler</button>
       <button type="submit">Ajouter</button>

@@ -4,8 +4,35 @@
   align-items: center;
   margin-left: 70px;
   margin-right: 70px;
+
+  .commande-form {
+
+    .command-part{
+      display: flex;
+      justify-content: center;
+    }
+
+    .element-part {
+      input {
+        width: 80px;
+      }
+      select {
+        width: 100px;
+      }
+      button {
+
+        height: 30px;
+        width: 30px;
+      }
+      .sous-name {
+        width: 100px;
+      }
+
+    }
+  }
+
   input {
-    width: 300px;
+    width: 200px;
     padding: 0.7em;
     margin: 5px;
     border: 1px solid #ccc;
@@ -20,6 +47,9 @@
 
   label {
     display: block;
+    input{
+      display: block;
+    }
   }
 
   button[type="submit"] {
@@ -35,10 +65,9 @@
   }
 
   select {
-    display: block;
     height: 30px;
     border-radius: 5px;
-    width: 320px;
+    width: 220px;
     margin: 5px;
   }
 
@@ -49,8 +78,17 @@
     margin: 20px;
   }
 
+  #montant_total {
+    input{
+      display: inline;
+    }
+    display: block;
+    align-items: end;
+    margin-left: 50%;
+  }
+
 }
 
 ::ng-deep app-custom-modal .modal {
-  width: 400px;
+  width: 700px;
 }

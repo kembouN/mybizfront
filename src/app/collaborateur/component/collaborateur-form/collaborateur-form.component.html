@@ -1,0 +1,38 @@
+<div class="collab-form-container">
+  <form #collabForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="form-bloc">
+      <input type="text" name="nom" [(ngModel)]="initialForm.nomCollaborateur" placeholder="Nom du collaborateur" required #nom="ngModel"/>
+
+        <select name="pays" id="" title="Choisir un pays" [(ngModel)]="initialForm.idPays">
+          <option value="0">Choisir un pays...</option>
+          @for (pays of listePays; track pays.idPays) {
+            <option value="{{pays.idPays}}" (click) ="onSelectPays(pays)"> {{pays.libellePays}} </option>
+          }
+        </select>
+
+        <div class="tel-whatsapp">
+          <span>{{codeTel}}</span>
+          <input type="tel" name="tel1" [(ngModel)]="initialForm.telephoneUn" class="telw" [disabled]="!displayTelWhatsapp" placeholder=" Numéro de téléphone whatsapp" telephoneUn="ngModel"/>
+          <label >
+            Whatsapp?
+            <input type="checkbox" name="whatsapp" [(ngModel)]="displayTelWhatsapp">
+          </label>
+        </div>
+        <div class="tel-whatsapp">
+          <span>{{codeTel}}</span>
+          <input type="tel" name="tel2" [(ngModel)]="initialForm.telephoneDeux" class="tel" placeholder=" Autre numéro de téléphone" #telephoneDeux="ngModel"/>
+        </div>
+
+        <input type="text" name="ville" [(ngModel)]="initialForm.ville" placeholder="Ville du collaborateur">
+        <input type="text" name="adresse" [(ngModel)]="initialForm.adresse" placeholder="Quartier, adresse">
+
+
+    </div>
+
+    <div class="boutons">
+      <button type="reset" (click)="onReset()">Annuler</button>
+      <button type="submit">Ajouter</button>
+    </div>
+
+  </form>
+</div>

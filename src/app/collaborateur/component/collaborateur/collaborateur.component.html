@@ -1,0 +1,51 @@
+<div class="collaborateur-container">
+  <app-side-bar></app-side-bar>
+  <div class="main-collaborateur-content">
+    <app-common-header></app-common-header>
+    <main class="flex-1 p-8">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-semibold">Liste des collaborateurs</h2>
+        <button class="ajouter" (click)="openModal()"> +Ajouter</button>
+      </div>
+      <table class="min-w-full bg-white rounded shadow">
+        <thead class="bg-blue-600 text-white">
+          <tr>
+            <th class="py-2 px-4">#</th>
+            <th class="py-2 px-4">Nom</th>
+            <th class="py-2 px-4">pays</th>
+            <th class="py-2 px-4">Téléphone</th>
+            <th>Ville</th>
+            <th>Adresse</th>
+            <th class="py-2 px-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (listCollabs) {
+            @for (collab of listCollabs; track collab.idCollaborateur) {
+              <tr class="border-b">
+                <td class="py-2 px-4">{{listCollabs.indexOf(collab) + 1}}</td>
+                <td class="py-2 px-4">{{collab.nom}}</td>
+                <td class="py-2 px-4">{{collab.pays.libellePays}}</td>
+                <td class="py-2 px-4">{{collab.telephoneUn}}@if (collab.telephoneDeux && collab.telephoneUn) {/{{collab.telephoneDeux}}}@else if (collab.telephoneDeux && !collab.telephoneUn) { {{collab.telephoneDeux}} }</td>
+                <td>{{collab.ville}}</td>
+                <td>{{collab.adresse}}</td>
+                <td class="py-2 px-4 action-btn">
+                  <button class="text-blue-600 hover:underline" (click)="openEditCollab(collab)" title="Modifier"><i class="fas fa-edit"></i></button>
+                  <button class="text-blue-600 hover:underline" title="Supprimer"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+            }
+          }@else {
+            <div class="empty-table">
+              Vous n'avez aucun collaborateur enregistré
+            </div>
+          }
+        </tbody>
+      </table>
+    </main>
+  </div>
+</div>
+
+@if (collabFormOpened) {
+  <app-custom-modal [isCentered]="true" [isVisible]="collabFormOpened" [modalTitle]="edit ? 'Modifier ce collaborateur' : 'Ajouter un nouveau collaborateur'" (close)="closeModal()"><app-collaborateur-form [isEdit]="edit" [selectedCollab]="collabToEdit"></app-collaborateur-form></app-custom-modal>
+}

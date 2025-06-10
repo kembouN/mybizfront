@@ -1,0 +1,29 @@
+<div class="sousservice-form-container">
+
+  <form #sousserviceFrom="ngForm" (ngSubmit)="onSubmit()">
+    <select name="service" title="Sélectionner une service parent" [(ngModel)]="initialForm.idService">
+      <option value="">Sélectionner le service parent</option>
+      @for (service of listServices; track service.idService) {
+        <option value="{{service.idService}}">{{service.libelle}}</option>
+      }
+    </select>
+    <input type="text" name="libelle" [(ngModel)]="initialForm.libelle" placeholder="Entrez un libellé" required #libelle="ngModel"/>
+    <div class="duree-unite">
+      <input type="number" name="duree" [(ngModel)]="initialForm.duree" placeholder="Durée de réalisation" #duree="ngModel">
+      <select name="unite" title="Sélectionner un type" [(ngModel)]="initialForm.unite">
+        <option value="">Choisir une unité de temps...</option>
+        <option value="HEURE">Heure</option>
+        <option value="JOUR">Jour</option>
+        <option value="MOIS">Mois</option>
+      </select>
+    </div>
+    <textarea name="descrition_sousservice" [(ngModel)]="initialForm.description" placeholder="Entrez une description" #description="ngModel"></textarea>
+
+    <div class="boutons">
+      <button type="reset">Annuler</button>
+      <button type="submit">Ajouter</button>
+    </div>
+  </form>
+
+</div>
+

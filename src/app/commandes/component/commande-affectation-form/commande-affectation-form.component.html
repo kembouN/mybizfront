@@ -1,0 +1,14 @@
+<div class="affect-commande-container">
+  <div >
+    <select name="collaborateur" title="Choix du collaborateur" [(ngModel)]="idCollab">
+      <option value="0">Choissir un collaborateur...</option>
+      @for (collab of listeCollaborateurs; track collab.idCollaborateur) {
+        <option value="{{collab.idCollaborateur}}">{{collab.nom}}</option>
+      }
+    </select>
+    <div class="boutons">
+      <button type="reset">Annuler</button>
+      <button type="button" (click)="assignCommandeToCollab()">Assigner</button>
+    </div>
+  </div>
+</div>

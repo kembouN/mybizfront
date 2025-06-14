@@ -12,15 +12,16 @@
 
         <div class="tel-whatsapp">
           <span>{{codeTel}}</span>
+          <input type="tel" name="tel2" [(ngModel)]="initialForm.telephoneDeux" class="tel" placeholder=" Autre numéro de téléphone" #telephoneDeux="ngModel"/>
+        </div>
+
+        <div class="tel-whatsapp">
+          <span>{{codeTel}}</span>
           <input type="tel" name="tel1" [(ngModel)]="initialForm.telephoneUn" class="telw" [disabled]="!displayTelWhatsapp" placeholder=" Numéro de téléphone whatsapp" telephoneUn="ngModel"/>
           <label >
             Whatsapp?
             <input type="checkbox" name="whatsapp" [(ngModel)]="displayTelWhatsapp">
           </label>
-        </div>
-        <div class="tel-whatsapp">
-          <span>{{codeTel}}</span>
-          <input type="tel" name="tel2" [(ngModel)]="initialForm.telephoneDeux" class="tel" placeholder=" Autre numéro de téléphone" #telephoneDeux="ngModel"/>
         </div>
 
         <input type="text" name="ville" [(ngModel)]="initialForm.ville" placeholder="Ville du collaborateur">

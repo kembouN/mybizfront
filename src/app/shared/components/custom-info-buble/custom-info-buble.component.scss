@@ -2,7 +2,7 @@
 .toast {
   text-align: center;
   background: transparent;
-  padding: 12px 24px;
+  padding: 20px;
   position: fixed;
   top: 20px;
   right: 20px;
@@ -21,13 +21,11 @@
 .success {
   background-color: #28a745;
   text-align: center;
-  padding: 5px;
 }
 
 .error {
   text-align: center;
   background-color: #dc3545;
-  padding: 5px;
 }
 
 @keyframes fadeInOut {

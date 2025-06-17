@@ -28,8 +28,16 @@ export class ClientService {
     return this.http.put<ApiResponse<ClientResponse>>(`${this.apiBaseUrl}/client/${idClient}`, data)
   }
 
-  getAllClientByEntreprise(idEts: number): Observable<ApiResponse<ClientResponse[]>> {
-    return this.http.get<ApiResponse<ClientResponse[]>>(`${this.apiBaseUrl}/client/get-by/entreprise/${idEts}`)
+  getAllClientByEntreprise(
+    idEts: number,
+    nomClient?: string,
+    typeClient?:string,
+    localisation?: string,
+    typeprospect?: number| string
+  ): Observable<ApiResponse<ClientResponse[]>> {
+    return this.http.get<ApiResponse<ClientResponse[]>>(
+      `${this.apiBaseUrl}/client/get-by/entreprise/${idEts}?nom=${nomClient}&typeClient=${typeClient}&localisation=${localisation}&typeProspect=${typeprospect}`
+    )
   }
 
   getAllPays(): Observable<ApiResponse<Pays[]>> {

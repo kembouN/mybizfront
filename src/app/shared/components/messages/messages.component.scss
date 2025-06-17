@@ -1,0 +1,50 @@
+.message-form-container {
+  form {
+    margin: 5px;
+    .contain {
+      display: flex;
+      flex-direction: column;
+      input {
+        width: 300px;
+        padding: 0.7em;
+        margin: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      select {
+        display: none;
+        height: 37px;
+        border-radius: 5px;
+        padding: 0.7em;
+        width: 320px;
+        margin: 5px;
+      }
+
+      textarea {
+        min-height: 100px;
+        min-width: 310px;
+        margin-left: 7px;
+      }
+    }
+
+    .boutons {
+      display: flex;
+      flex-direction: row;
+      margin: 20px 20px 20px 70px;
+
+      button[type="submit"] {
+        margin-left: 50px;
+        background-color: #007bff;
+        color: white;
+        padding: 0.7em 1.2em;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }
+}

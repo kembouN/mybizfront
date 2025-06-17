@@ -4,52 +4,77 @@
     <app-common-header></app-common-header>
     <main class="flex-1 p-8">
       <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-semibold">Liste des clients</h2>
+       <div class="title-filter">
+          <h2 class="text-2xl font-semibold">Liste des clients</h2>
+          <form #filterForm="ngForm" class="filter" >
+            <input type="text" placeholder="Rechercher un client..." [(ngModel)]="nom" name="nom">
+            <input type="text" name="localisation" placeholder="Localisation..." [(ngModel)]="localisation">
+            <select name="type_client" title="Type de client" [(ngModel)]="typeClient">
+              <option value="">Type...</option>
+              <option value="PERSONNE MORALE">Entreprise</option>
+              <option value="PERSONNE PHYSIQUE">Personne physique</option>
+            </select>
+            <select name="type_prospect" title="Statut client" [(ngModel)]="typeProspect">
+              <option value="">Type prospect...</option>
+              @for (typeprospect of listeTypeprospect; track typeprospect) {
+                <option value="{{typeprospect.idTypeprospect}}">{{typeprospect.libelleTypeprospect}}</option>
+              }
+            </select>
+
+            <button type="button" title="Rechercher" (click)="getListeClients()"><i class="fas fa-search"></i></button>
+          </form>
+       </div>
         <button class="ajouter" (click)="openClientForm()"> +Ajouter</button>
       </div>
-      <table class="min-w-full bg-white rounded shadow">
-        <thead class="bg-blue-600 text-white">
-          <tr>
-            <th class="py-2 px-4">#</th>
-            <th class="py-2 px-4">Code</th>
-            <th class="py-2 px-4">Nom</th>
-            <th class="py-2 px-4">Adresse e-mail</th>
-            <th class="py-2 px-4">Téléphone</th>
-            <th>Type de client</th>
-            <th>Agent</th>
-            <th class="py-2 px-4">Statut</th>
-            <th class="py-2 px-4">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          @if (listClients) {
+      @if(listClients) {
+        <table class="min-w-full bg-white rounded shadow">
+          <thead class="bg-blue-600 text-white">
+            <tr>
+              <th class="py-2 px-4">#</th>
+              <th class="py-2 px-4">Code</th>
+              <th class="py-2 px-4">Nom</th>
+              <th class="py-2 px-4">Adresse e-mail</th>
+              <th class="py-2 px-4">Téléphone</th>
+              <th>Type de client</th>
+              <th>Agent</th>
+              <th class="py-2 px-4">Statut</th>
+              <th class="py-2 px-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+
             @for (client of listClients; track client.idClient) {
               <tr class="border-b">
                 <td class="py-2 px-4">{{listClients.indexOf(client) + 1}}</td>
                 <td class="py-2 px-4">{{client.code}}</td>
                 <td class="py-2 px-4">{{client.nomClient}}</td>
                 <td class="py-2 px-4">{{client.emailUn}}@if (client.emailDeux) {/{{client.emailDeux}}}</td>
-                <td class="py-2 px-4">{{client.telephoneUn}}@if (client.telephoneDeux && client.telephoneUn) {/{{client.telephoneDeux}}}@else if (client.telephoneDeux && !client.telephoneUn) { {{client.telephoneDeux}} }</td>
+                <td class="py-2 px-4">@if (client.telephoneDeux != "" && client.telephoneUn != "") { {{client.telephoneUn}}/{{client.telephoneDeux}}}@else if (client.telephoneDeux != "" && client.telephoneUn == "") { {{client.telephoneDeux}} }@else if(client.telephoneUn != "" && client.telephoneDeux == "") { {{client.telephoneUn}} }</td>
                 <td>{{client.typeClient}}</td>
                 <td>{{client.agentLiaison}}</td>
                 <td class="py-2 px-4">{{client.statut}}</td>
                 <td class="py-2 px-4">
                   <button class="text-blue-600 hover:underline" (click)="openEditClientForm(client)" title="Modifier"><i class="fas fa-edit"></i></button>
-                  <button class="text-blue-600 hover:underline" title="Supprimer"><i class="fas fa-trash"></i></button>
+                  <button class="text-blue-600 hover:underline" title="Message" (click)="openMessageModalForone(client.idClient)"><i class="fas fa-paper-plane"></i></button>
                 </td>
               </tr>
             }
-          }@else {
-            <div class="empty-table">
-              Vous n'avez aucun client enregistré
-            </div>
-          }
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+
+      }@else {
+        <div class="empty-table">
+          Vous n'avez aucun client enregistré
+        </div>
+      }
     </main>
   </div>
 </div>
 
 @if (clientFormOpened) {
   <app-custom-modal [isCentered]="true" [isVisible]="clientFormOpened" [modalTitle]="edit ? 'Modifier client ou prospect' : 'Ajouter un nouveau client ou prospect'" (close)="closeClientForm()"><app-client-form [isEdit]="edit" [selectedClient]="clientToEdit"></app-client-form></app-custom-modal>
+}
+
+@if(messageOpen){
+  <app-custom-modal [isCentered]="true" [isVisible]="messageOpen" [modalTitle]="oneReceiver ? 'Envoyer un message à ce client' : 'Envoyer un message aux clients'" (close)="closeMessageBox()"><app-messages [receivers]="selectedClients"></app-messages></app-custom-modal>
 }

@@ -1,0 +1,29 @@
+<div class="message-form-container">
+  <form #message="ngForm" (ngSubmit)="sendMessage()">
+    <div class="contain">
+      <select name="typeMessage" [(ngModel)]="typeMessage" title="Selectionner un type de message">
+        <option value="">Type de message...</option>
+        <option value="TEXT">Texte</option>
+        <option value="DOCUMENT">Document</option>
+        <option value="IMAGE">Image</option>
+      </select>
+
+      @if (typeMessage == "TEXT") {
+        <textarea name="message" id="" placeholder="Entrez votre message" [(ngModel)]="initialForm.message" ></textarea>
+      }@else if (typeMessage == "DOCUMENT") {
+        <input type="file" name="document" [(ngModel)]="initialForm.file">
+        <input type="text" name="filename" [(ngModel)]="initialForm.fileName" placeholder="Entrez le nom du document">
+        <input type="text" name="caption" [(ngModel)]="initialForm.caption" placeholder="Légende">
+      }@else if (typeMessage == "IMAGE") {
+        <input type="file" name="image" [(ngModel)]="initialForm.file">
+        <input type="text" name="caption" [(ngModel)]="initialForm.caption" placeholder="Légende">
+      }
+
+    </div>
+
+    <div class="boutons">
+      <button type="reset">Annuler</button>
+      <button type="submit">Envoyer<i class="fas fa-paper-plane"></i></button>
+    </div>
+  </form>
+</div>

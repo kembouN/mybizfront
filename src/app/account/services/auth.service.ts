@@ -7,6 +7,8 @@ import { ApiResponse } from '../../shared/models/api-response';
 import { Router } from '@angular/router';
 import {jwtDecode} from 'jwt-decode';
 import { RegisterRequest } from '../models/register';
+import { UpdateUser } from '../models/update-user';
+import { ChangePasswordRequest } from '../models/change-password';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +47,14 @@ export class AuthService {
   logout(): void{
     localStorage.clear();
     this.router.navigateByUrl('/login');
+  }
+
+  updateUser(idUser: number, data: UpdateUser) :Observable<ApiResponse<LoginResponse>> {
+    return this.http.put<ApiResponse<LoginResponse>>(`${this.apiBaseUrl}/user/${idUser}`, data);
+  }
+
+  changePassword(idUser: number, data: ChangePasswordRequest) :Observable<ApiResponse<any>> {
+    return this.http.put<ApiResponse<any>>(`${this.apiBaseUrl}/user/${idUser}/password-update`, data);
   }
 
 }

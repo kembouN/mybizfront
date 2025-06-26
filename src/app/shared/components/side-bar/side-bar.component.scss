@@ -16,7 +16,6 @@
     font-size: 1.7rem;
     font-weight: bold;
     color:  #0056b3;
-
   }
 
   .pages-links{
@@ -35,7 +34,21 @@
       &:hover{
         background-color:  #0056b3;
       }
-
+    }
+    .user-profile {
+      display: flex;
+      margin-left: 20px;
+      .profil-link {
+        width: 50px;
+        border-radius: 50%;
+        font-size: xx-large;
+      }
+      .profil-title {
+        margin-top: 35px;
+        margin-left: -10px;
+        font-weight: bold;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      }
     }
     .active-link{
       background-color: #0056b3;

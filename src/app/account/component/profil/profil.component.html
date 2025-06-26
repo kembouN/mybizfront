@@ -1,0 +1,101 @@
+<div class="profil-container">
+  <app-side-bar></app-side-bar>
+  <div class="main-content">
+    <app-common-header></app-common-header>
+    <div class="main-profil-content">
+
+      <div class="seeing-profil-info">
+        <form class="info-perso" #userForm="ngForm" (ngSubmit)="submitUserUpdate()">
+          <h3>Mes informations</h3>
+          <div class="form-input">
+            <label for="">Nom</label>
+            <input type="text" [(ngModel)]="initialUserForm.nom" name="user-name">
+          </div>
+          <div class="form-input">
+            <label for="">Email</label>
+            <input type="email" [(ngModel)]="initialUserForm.email" name="user-email">
+          </div>
+          <button type="submit"><i class="fas fa-edit"></i>Soumettre</button>
+        </form>
+
+        <form class="security-info" #passwordForm="ngForm" (ngSubmit)="submitChangePassword()">
+          <h3>Changer mon mot de passe</h3>
+          <div class="form-input">
+            <label for="">Mot de passe</label>
+            <input type="password" [(ngModel)]="initialPasswordForm.password" name="pass">
+          </div>
+          <div class="form-input">
+            <label for="">Nouveau mot de passe</label>
+            <input type="password" [(ngModel)]="initialPasswordForm.newPassword" name="new-pass">
+          </div>
+          <div class="form-input">
+            <label for="">Confirmation du nouveau mot de passe</label>
+            <input type="password" [(ngModel)]="initialPasswordForm.cpassword" name="c-pass">
+          </div>
+
+          <button type="submit"><i class="fas fa-edit"></i> Soumettre</button>
+        </form>
+      </div>
+
+      <div class="update-ets-forms">
+        <h2>Mon Entreprise</h2>
+
+        <form class="ets-update-form" #etsForm="ngForm" (ngSubmit)="submitUpdateEntreprise()">
+
+          <div class="two-form-sides">
+            <div class="ets-left">
+              <div class="profil-image-container" onkeydown="triggerInputFile()" (click)="triggerInputFile()">
+                <div class="image-wrapper">
+                  <img src="" alt="logo entreprise" class="image-profil" >
+
+                  <button type="button" title="Modifier le logo" class="edit-image-button" (click)="triggerInputFile()">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <input type="file" name="input-logo" id="fileInput" accept="image/*" class="hidden-file-input">
+                </div>
+              </div>
+              <div class="form-input">
+                <label for="pays">Pays</label>
+                <select name="pays" id="pays" [(ngModel)]="initialEnterpriseForm.idPays">
+                  <option value="">Choisir un pays...</option>
+                  @for (pays of listePays; track pays.idPays) {
+                    <option value="{{pays.idPays}}" onkeydown="onSelectPays(pays)" (click)="onSelectPays(pays)">{{pays.libellePays}}</option>
+                  }
+                </select>
+              </div>
+              <div class="form-input">
+                <label for="">Ville</label>
+                <input type="text" [(ngModel)]="initialEnterpriseForm.ville" name="ville">
+              </div>
+            </div>
+
+            <div class="ets-right">
+              <div class="form-input">
+                <label for="">Nom de l'entreprise</label>
+                <input type="text" [(ngModel)]="initialEnterpriseForm.nom" name="nom">
+              </div>
+              <div class="form-input">
+                <label for="">Email de l'entreprise</label>
+                <input type="text" [(ngModel)]="initialEnterpriseForm.email" name="email">
+              </div>
+              <div class="form-input">
+                <label for="">Téléphone 1</label>
+                <input type="text" [(ngModel)]="initialEnterpriseForm.telephone1" name="tel1">
+              </div>
+              <div class="form-input">
+                <label for="">Téléphone 2</label>
+                <input type="text" [(ngModel)]="initialEnterpriseForm.telephone2" name="tel2">
+              </div>
+            </div>
+          </div>
+          <div class="form-textarea">
+            <label for="">Email de l'entreprise</label>
+            <textarea name="description" id="description" [(ngModel)]="initialEnterpriseForm.description"></textarea>
+          </div>
+          <button type="submit" ><i class="fas fa-edit"></i>Soumettre</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -54,8 +54,6 @@ export class ClientComponent implements OnInit{
   }
 
   getListeClients() {
-    console.log("cliqué🙂");
-
     this.clientService.getAllClientByEntreprise(
       this.etsId,
       this.nom,
@@ -81,6 +79,14 @@ export class ClientComponent implements OnInit{
       this.selectedClients.push(clientId);
     }
     this.oneReceiver = true;
+  }
+
+  openMessageModalForMore() {
+    this.listClients.forEach(client => {
+      this.selectedClients.push(client.idClient)
+    });
+    this.messageOpen = !this.messageOpen;
+    this.oneReceiver = false;
   }
 
   closeMessageBox(){

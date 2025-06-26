@@ -17,14 +17,18 @@
 
     <a routerLink="/commandes" routerLinkActive="active-link"  class="link">LES COMMANDES</a>
 
-    <a routerLink="/enterprises" routerLinkActive="active-link" class="link">VOS ENTREPRISES</a>
+    <!-- <a routerLink="/enterprises" routerLinkActive="active-link" class="link">VOS ENTREPRISES</a> -->
 
     <a routerLink="/sous-services" routerLinkActive="active-link" class="link">SOUS-SERVICES</a>
 
     <a routerLink="/collaborateurs" routerLinkActive="active-link" class="link">VOS COLLABORATEURS</a>
 
-
-    <div class="user-profile"></div>
+    <div class="user-profile">
+      <a routerLink="/profil" routerLinkActive="active-link" class="profil-link" title="Voir le profile"><i class="fas fa-user"></i></a>
+      <div class="profil-title">
+        {{userName}}
+      </div>
+  </div>
 
   </nav>
 </div>

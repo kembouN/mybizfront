@@ -51,9 +51,9 @@ export class EntrepriseFormComponent implements OnInit{
         description: "",
         nom: "",
         email: "",
-        telephone1: undefined,
-        telephone2: undefined,
-        idPays: "",
+        telephone1: 0,
+        telephone2: 0,
+        idPays: 0,
         ville: ""
       };
     }
@@ -69,13 +69,11 @@ export class EntrepriseFormComponent implements OnInit{
         window.location.reload();
       },3000);
       this.toast.show(res.message, "success")
-
     },
     error: (error) => {
       console.log(error)
       this.toast.show(error.error.message, 'error')
     }});
-
   }
 
   editEnterprise(){

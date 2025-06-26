@@ -3,7 +3,7 @@
     <input type="email" name="email" [(ngModel)]="initialForm.email" placeholder="Email de l'entreprise" required #email="ngModel"/>
     <input type="text" name="nom" [(ngModel)]="initialForm.nom" placeholder="Nom de l'entreprise" required #nom="ngModel">
     <select name="pays" title="Sélectionner une pays" [(ngModel)]="initialForm.idPays" #pays="ngModel">
-      <option value="">Sélectionner un pays...</option>
+      <option value="0">Sélectionner un pays...</option>
       @for (pays of listPays; track pays.idPays) {
         <option value="{{pays.idPays}}" (click)="onSelectPays(pays)" (onkeydown)="onSelectPays(pays)">{{pays.libellePays}}</option>
       }

@@ -20,10 +20,14 @@ export class EntrepriseService {
   }
 
   getAllEntreprise(idUtilisateur: number): Observable<ApiResponse<Enterprise[]>> {
-    return this.http.get<ApiResponse<Enterprise[]>>(`${this.apiBaseUrl}/entreprise/${idUtilisateur}`)
+    return this.http.get<ApiResponse<Enterprise[]>>(`${this.apiBaseUrl}/entreprise/user/${idUtilisateur}`)
   }
 
-  updateEntreprise(idEntreprise: number, data: EnterpriseRequest): Observable<ApiResponse<Enterprise>> {
+  updateEntreprise(idEntreprise: number, data: EnterpriseRequest): Observable<ApiResponse<string>> {
     return this.http.put<ApiResponse<any>>(`${this.apiBaseUrl}/entreprise/${idEntreprise}`, data)
+  }
+
+  getSpecificEntreprise(idEntreprise: number) : Observable<ApiResponse<Enterprise>> {
+    return this.http.get<ApiResponse<Enterprise>>(`${this.apiBaseUrl}/entreprise/${idEntreprise}`)
   }
 }

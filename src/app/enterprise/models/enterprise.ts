@@ -9,7 +9,6 @@ export interface EnterpriseRequest{
   telephone2: number,
   idPays: number,
   ville: string,
-  // logo: File
 }
 
 export interface Enterprise{
@@ -21,7 +20,7 @@ export interface Enterprise{
   telephone1: number,
   telephone2: number,
   localisation: string,
-  logo: Blob,
+  logo: any,
   responsable: string
   pays: Pays,
   ville: string,

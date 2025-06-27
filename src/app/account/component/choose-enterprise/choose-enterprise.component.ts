@@ -21,6 +21,7 @@ export class ChooseEnterpriseComponent implements OnInit{
   entreprises!: Enterprise[];
 
   enterpriseFormOpened = false;
+  logoUrl!: string[];
 
   userId = numberAttribute(localStorage.getItem("userId"));
   closeEtsForm() {
@@ -42,6 +43,9 @@ export class ChooseEnterpriseComponent implements OnInit{
   loadEnterprises(){
     this.entrepriseService.getAllEntreprise(this.userId).subscribe( res => {
       this.entreprises = res.content;
+      this.entreprises.forEach(ets => {
+       ets.logo = 'data:image/*;base64,'+ ets.logo
+      });
     });
   }
 

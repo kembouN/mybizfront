@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { Observable } from 'rxjs';
@@ -25,6 +25,12 @@ export class EntrepriseService {
 
   updateEntreprise(idEntreprise: number, data: EnterpriseRequest): Observable<ApiResponse<string>> {
     return this.http.put<ApiResponse<any>>(`${this.apiBaseUrl}/entreprise/${idEntreprise}`, data)
+  }
+
+  uploadLogoEnterprise(idEntreprise: number, logo: File): Observable<ApiResponse<any>> {
+    const form = new FormData();
+    form.append('logo', logo);
+    return this.http.post<ApiResponse<any>>(`${this.apiBaseUrl}/entreprise/${idEntreprise}/upload-logo`, form);
   }
 
   getSpecificEntreprise(idEntreprise: number) : Observable<ApiResponse<Enterprise>> {

@@ -7,7 +7,7 @@
     @if(entreprises.length != 0){
       @for (ets of entreprises; track ets.entrepriseId) {
         <div class="org" (click)="onSelectEnterprise(ets)">
-          <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" /> -->
+          <img class="logo-ets" [src]="ets.logo" alt="Google" />
           <div class="org-info">
             <p> <strong>{{ets.nom}}</strong></p>
             <p>{{ets.nbrClient}} client(s)</p>

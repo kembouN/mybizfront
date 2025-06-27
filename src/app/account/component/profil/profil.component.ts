@@ -11,6 +11,7 @@ import { Pays } from '../../../shared/models/pays';
 import { FormsModule } from '@angular/forms';
 import { EntrepriseService } from '../../../enterprise/service/entreprise.service';
 import { AuthService } from '../../services/auth.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profil',
@@ -25,6 +26,7 @@ export class ProfilComponent implements OnInit{
   utilisateurServise = inject(AuthService);
   toast = inject(ToastService);
   router = inject(Router);
+  sanitizer = inject(DomSanitizer);
 
   initialUserForm!: UpdateUser;
   initialPasswordForm: ChangePasswordRequest = {
@@ -39,9 +41,21 @@ export class ProfilComponent implements OnInit{
   idEts = numberAttribute(localStorage.getItem("etsId"));
   connectedEts!: Enterprise;
   codeTel ="";
-
+  logoToUpload: any;
+  logoUrl: any;
   triggerInputFile() {
-    // document.getElementById("fileInput")?.click();
+    document.getElementById("fileInput")?.click();
+  }
+
+  imageUpload(event: any) {
+    const files = event.target.files;
+    if(files && files.length > 0) {
+      this.logoToUpload = files[0]
+
+      const url = window.URL.createObjectURL(files[0]);
+      this.logoUrl = this.sanitizer.bypassSecurityTrustUrl(url);
+    }
+
   }
 
   ngOnInit(): void {
@@ -61,8 +75,7 @@ export class ProfilComponent implements OnInit{
         idPays: this.connectedEts?.pays.idPays,
         ville: this.connectedEts?.ville
       };
-      this.codeTel = this.connectedEts?.pays.codePays;
-
+      this.logoUrl = 'data:image/*;base64,'+ this.connectedEts.logo;
     });
 
     this.initialUserForm = {
@@ -111,14 +124,9 @@ export class ProfilComponent implements OnInit{
   }
 
   submitUpdateEntreprise() {
-    console.log(this.initialEnterpriseForm);
-
     this.entrepriseService.updateEntreprise(this.idEts, this.initialEnterpriseForm).subscribe({
       next: res => {
-        localStorage.setItem("nomEts", res.content)
-        setTimeout(() => {
-          window.location.reload();
-        },1000);
+        localStorage.setItem("nomEts", res.content);
         this.toast.show(res.message, "success")
       },
       error: (error) => {
@@ -126,6 +134,23 @@ export class ProfilComponent implements OnInit{
         this.toast.show(error.error.message, 'error')
       }
     });
+    if(this.logoToUpload){
+      this.entrepriseService.uploadLogoEnterprise(this.idEts, this.logoToUpload).subscribe({
+        next: res => {
+          localStorage.setItem("nomEts", res.content)
+          setTimeout(() => {
+            window.location.reload();
+          },1000);
+          this.toast.show(res.message, "success")
+        },
+        error: (error) => {
+          console.log(error)
+          this.toast.show(error.error.message, 'error')
+        }
+      });
+    }
   }
+
+
 
 }

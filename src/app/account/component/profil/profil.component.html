@@ -46,12 +46,12 @@
             <div class="ets-left">
               <div class="profil-image-container" onkeydown="triggerInputFile()" (click)="triggerInputFile()">
                 <div class="image-wrapper">
-                  <img src="" alt="logo entreprise" class="image-profil" >
+                  <img [src]="logoUrl" alt="" class="image-profil" id="profilLogoEts" >
 
                   <button type="button" title="Modifier le logo" class="edit-image-button" (click)="triggerInputFile()">
                     <i class="fas fa-edit"></i>
                   </button>
-                  <input type="file" name="input-logo" id="fileInput" accept="image/*" class="hidden-file-input">
+                  <input type="file" name="input-logo" id="fileInput" accept="image/*" class="hidden-file-input" (change)="imageUpload($event)">
                 </div>
               </div>
               <div class="form-input">

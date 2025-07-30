@@ -127,6 +127,9 @@ export class ProfilComponent implements OnInit{
     this.entrepriseService.updateEntreprise(this.idEts, this.initialEnterpriseForm).subscribe({
       next: res => {
         localStorage.setItem("nomEts", res.content);
+        setTimeout(() => {
+          window.location.reload();
+        },1000);
         this.toast.show(res.message, "success")
       },
       error: (error) => {

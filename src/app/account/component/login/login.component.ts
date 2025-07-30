@@ -24,6 +24,10 @@ export class LoginComponent {
 
 
   onSubmit(): void{
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
     this.authService.userLogin(this.initialLoginRequest).subscribe({
       next:(res) =>{
         localStorage.setItem("userToken", res.content.token);
